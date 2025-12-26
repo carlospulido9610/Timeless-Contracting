@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Hammer, ShoppingBag, Calendar, ChevronDown, Home, Paintbrush } from 'lucide-react';
+import { Hammer, ShoppingBag, Calendar, ChevronDown, Home, Paintbrush, Menu, X as CloseIcon } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useQuote } from '../context/QuoteContext';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -28,6 +28,7 @@ const serviceItems = [
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
     const [servicesOpen, setServicesOpen] = useState(false);
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const { itemCount, toggleCart } = useQuote();
     const location = useLocation();
     const navigate = useNavigate();
@@ -41,6 +42,7 @@ export default function Navbar() {
     }, []);
 
     const scrollToSection = (id: string) => {
+        setMobileMenuOpen(false);
         // If not on home page, navigate to home first then scroll
         if (location.pathname !== '/') {
             navigate('/', { state: { scrollTo: id } });
@@ -76,6 +78,11 @@ export default function Navbar() {
         }
     }, [servicesOpen]);
 
+    const navLinks = [
+        { name: 'Catalog', to: '/catalog' },
+        { name: 'About', to: '/about' },
+    ];
+
     return (
         <nav
             className={`fixed w-full z-40 top-0 transition-all duration-500 ease-in-out ${scrolled
@@ -87,6 +94,7 @@ export default function Navbar() {
                 <Link
                     to="/"
                     className="text-[#EDEDED] font-semibold text-sm tracking-tight flex items-center gap-2 hover:opacity-80 transition-opacity"
+                    onClick={() => setMobileMenuOpen(false)}
                 >
                     <div className="w-5 h-5 bg-[#C6A87C] rounded-[1px] flex items-center justify-center text-black">
                         <Hammer size={12} strokeWidth={2} />
@@ -95,12 +103,15 @@ export default function Navbar() {
                 </Link>
 
                 <div className="hidden md:flex items-center space-x-8">
-                    <Link
-                        to="/catalog"
-                        className="text-[13px] text-[#888] font-normal hover:text-[#EDEDED] transition-colors"
-                    >
-                        Catalog
-                    </Link>
+                    {navLinks.map((link) => (
+                        <Link
+                            key={link.name}
+                            to={link.to}
+                            className="text-[13px] text-[#888] font-normal hover:text-[#EDEDED] transition-colors"
+                        >
+                            {link.name}
+                        </Link>
+                    ))}
 
                     {/* Services Dropdown */}
                     <div
@@ -203,7 +214,7 @@ export default function Navbar() {
                         </AnimatePresence>
                     </button>
 
-                    {/* Booking Button */}
+                    {/* Booking Button (Desktop) */}
                     <button
                         onClick={() => scrollToSection('booking')}
                         className="hidden md:flex items-center gap-2 bg-[#C6A87C] text-[#050505] hover:bg-[#B59669] transition-colors font-medium text-[12px] px-4 py-2 rounded-[4px]"
@@ -211,8 +222,82 @@ export default function Navbar() {
                         <Calendar size={14} />
                         Schedule Visit
                     </button>
+
+                    {/* Mobile Menu Toggle */}
+                    <button
+                        className="p-2 md:hidden text-[#888] hover:text-[#EDEDED] transition-colors"
+                        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                    >
+                        {mobileMenuOpen ? <CloseIcon size={24} /> : <Menu size={24} />}
+                    </button>
                 </div>
             </div>
+
+            {/* Mobile Menu Drawer */}
+            <AnimatePresence>
+                {mobileMenuOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.3, ease: 'easeInOut' }}
+                        className="md:hidden bg-[#0A0A0A] border-b border-white/10 overflow-hidden"
+                    >
+                        <div className="p-6 space-y-6">
+                            <div className="grid grid-cols-1 gap-4">
+                                {navLinks.map((link) => (
+                                    <Link
+                                        key={link.name}
+                                        to={link.to}
+                                        className="text-lg text-white font-medium px-2 py-2"
+                                        onClick={() => setMobileMenuOpen(false)}
+                                    >
+                                        {link.name}
+                                    </Link>
+                                ))}
+                                <button
+                                    onClick={() => scrollToSection('process')}
+                                    className="text-lg text-white font-medium px-2 py-2 text-left"
+                                >
+                                    Process
+                                </button>
+                            </div>
+
+                            <div className="pt-4 border-t border-white/5">
+                                <span className="text-[10px] font-bold text-[#555] uppercase tracking-widest block mb-4 px-2">
+                                    Our Services
+                                </span>
+                                <div className="grid grid-cols-1 gap-2">
+                                    {serviceItems.map((service) => (
+                                        <Link
+                                            key={service.title}
+                                            to={service.link}
+                                            className="flex items-center gap-4 p-3 bg-white/5 rounded-lg active:bg-white/10"
+                                            onClick={() => setMobileMenuOpen(false)}
+                                        >
+                                            <div className="w-10 h-10 bg-[#C6A87C]/10 rounded-lg flex items-center justify-center">
+                                                <service.icon size={20} className="text-[#C6A87C]" />
+                                            </div>
+                                            <div>
+                                                <div className="text-sm font-medium text-white">{service.title}</div>
+                                                <div className="text-[11px] text-[#666]">{service.description}</div>
+                                            </div>
+                                        </Link>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <button
+                                onClick={() => scrollToSection('booking')}
+                                className="w-full flex items-center justify-center gap-2 bg-[#C6A87C] text-[#050505] font-medium py-4 rounded-lg"
+                            >
+                                <Calendar size={18} />
+                                Schedule Free Visit
+                            </button>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </nav>
     );
 }
