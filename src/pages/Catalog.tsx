@@ -385,10 +385,10 @@ export default function Catalog() {
 
                     <div className="text-center mt-8">
                         <Link
-                            to="/#configurator"
+                            to="/services"
                             className="inline-flex items-center gap-2 bg-[#C6A87C] hover:bg-[#B59669] text-black font-medium px-6 py-3 rounded-md transition-colors"
                         >
-                            Open Full Configurator
+                            Explore Services
                             <ArrowRight size={18} />
                         </Link>
                     </div>

@@ -137,20 +137,14 @@ export default function Navbar() {
 
                                     <div className="relative p-2">
                                         {/* View All Services Link */}
-                                        <Link
-                                            to="/services"
-                                            className="block px-4 py-3 text-[12px] text-[#C6A87C] font-medium border-b border-white/5 hover:bg-white/5 transition-colors rounded-t-lg"
-                                            onClick={() => setServicesOpen(false)}
-                                        >
-                                            View All Services →
-                                        </Link>
+
 
                                         {/* Service Items */}
                                         {serviceItems.map((service, index) => (
                                             <Link
                                                 key={service.title}
                                                 to={service.link}
-                                                className={`group flex items-start gap-3 p-3 hover:bg-white/5 transition-colors ${index === serviceItems.length - 1 ? 'rounded-b-lg' : ''
+                                                className={`group flex items-start gap-3 p-3 hover:bg-white/5 transition-colors ${index === 0 ? 'rounded-t-lg' : ''} ${index === serviceItems.length - 1 ? 'rounded-b-lg' : ''
                                                     }`}
                                                 onClick={() => setServicesOpen(false)}
                                             >
@@ -173,12 +167,7 @@ export default function Navbar() {
                         </AnimatePresence>
                     </div>
 
-                    <button
-                        onClick={() => scrollToSection('configurator')}
-                        className="text-[13px] text-[#888] font-normal hover:text-[#EDEDED] transition-colors"
-                    >
-                        Studio
-                    </button>
+
                     <Link
                         to="/about"
                         className="text-[13px] text-[#888] font-normal hover:text-[#EDEDED] transition-colors"
