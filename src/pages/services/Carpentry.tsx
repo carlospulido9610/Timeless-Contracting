@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
     Hammer,
     Check,
-    Plus,
     ArrowRight,
     Tv,
     Layers,
@@ -13,10 +12,10 @@ import {
     DoorOpen,
     Lightbulb,
     Ruler,
-    Palette
+    Palette,
+    Calendar
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useQuote } from '../../context/QuoteContext';
 
 const carpentryServices = [
     {
@@ -87,32 +86,11 @@ export default function Carpentry() {
     const [selectedProject, setSelectedProject] = useState('media-wall');
     const [selectedWood, setSelectedWood] = useState('american-walnut');
     const [selectedExtras, setSelectedExtras] = useState<string[]>([]);
-    const [addedFeedback, setAddedFeedback] = useState(false);
-
-    const { addToQuote } = useQuote();
 
     const toggleExtra = (id: string) => {
         setSelectedExtras(prev =>
             prev.includes(id) ? prev.filter(e => e !== id) : [...prev, id]
         );
-    };
-
-    const handleAddToQuote = () => {
-        const projectOption = projectTypes.find(p => p.id === selectedProject);
-        const woodOption = woodOptions.find(w => w.id === selectedWood);
-        const extraLabels = selectedExtras.map(e => extras.find(ex => ex.id === e)?.name || e);
-
-        addToQuote({
-            wood: selectedWood as any,
-            woodLabel: `Carpentry - ${projectOption?.name}`,
-            layout: selectedProject as any,
-            layoutLabel: `Wood: ${woodOption?.name}`,
-            extras: selectedExtras,
-            extrasLabels: extraLabels,
-            price: 0,
-        });
-        setAddedFeedback(true);
-        setTimeout(() => setAddedFeedback(false), 2000);
     };
 
     return (
@@ -378,27 +356,13 @@ export default function Carpentry() {
                                     4-6 Weeks
                                 </span>
                             </div>
-                            <motion.button
-                                whileHover={{ scale: 1.02 }}
-                                whileTap={{ scale: 0.98 }}
-                                onClick={handleAddToQuote}
-                                className={`w-full font-medium text-[13px] py-3 rounded-[4px] transition-all duration-300 flex items-center justify-center gap-2 ${addedFeedback
-                                    ? 'bg-green-600 text-white hover:bg-green-700'
-                                    : 'bg-[#C6A87C] text-[#050505] hover:bg-[#B59669]'
-                                    }`}
+                            <Link
+                                to="/book"
+                                className="w-full font-medium text-[13px] py-3 rounded-[4px] transition-all duration-300 flex items-center justify-center gap-2 bg-[#C6A87C] text-[#050505] hover:bg-[#B59669]"
                             >
-                                {addedFeedback ? (
-                                    <>
-                                        <Check size={16} />
-                                        Added to Quote
-                                    </>
-                                ) : (
-                                    <>
-                                        <Plus size={16} />
-                                        Add to Quote
-                                    </>
-                                )}
-                            </motion.button>
+                                <Calendar size={16} />
+                                Book Consultation
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -408,13 +372,14 @@ export default function Carpentry() {
             <section className="py-16 border-t border-white/5 bg-gradient-to-b from-[#0A0A0A] to-[#050505]">
                 <div className="max-w-3xl mx-auto px-6 text-center">
                     <h2 className="text-2xl font-medium text-white mb-4">Ready to Build Something Beautiful?</h2>
-                    <p className="text-[#888] mb-8">Schedule a free consultation and let's bring your vision to life.</p>
+                    <p className="text-[#888] mb-8">Schedule a consultation for $100 and let's bring your vision to life.</p>
                     <Link
-                        to="/#booking"
-                        className="inline-flex items-center justify-center gap-2 bg-[#C6A87C] hover:bg-[#B59669] text-black font-medium px-6 py-3 rounded-md transition-colors"
+                        to="/"
+                        state={{ scrollTo: 'booking' }}
+                        className="inline-flex items-center gap-2 bg-[#C6A87C] text-[#050505] px-8 py-4 rounded-lg hover:bg-[#B59669] transition-all font-medium"
                     >
-                        Schedule Consultation
-                        <ArrowRight size={18} />
+                        <span>Schedule Consultation</span>
+                        <ArrowRight size={20} />
                     </Link>
                 </div>
             </section>

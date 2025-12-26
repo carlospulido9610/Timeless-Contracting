@@ -170,7 +170,7 @@ export default function About() {
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <Link
-                                to="/#booking"
+                                to="/book"
                                 className="inline-flex items-center justify-center gap-2 bg-[#C6A87C] hover:bg-[#B59669] text-black font-medium px-6 py-3 rounded-md transition-colors"
                             >
                                 Schedule Consultation

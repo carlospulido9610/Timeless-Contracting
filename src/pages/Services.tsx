@@ -141,13 +141,14 @@ export default function Services() {
                             Not Sure Where to Start?
                         </h2>
                         <p className="text-[#888] mb-8">
-                            Schedule a free consultation and let's discuss how we can transform your space.
+                            Schedule a professional consultation and let's discuss how we can transform your space.
                         </p>
                         <Link
-                            to="/#booking"
-                            className="inline-flex items-center justify-center gap-2 bg-[#C6A87C] hover:bg-[#B59669] text-black font-medium px-6 py-3 rounded-md transition-colors"
+                            to="/"
+                            state={{ scrollTo: 'booking' }}
+                            className="inline-flex items-center gap-2 bg-[#1a1a1a] text-white px-8 py-4 rounded-lg hover:bg-[#333] transition-all text-sm tracking-wide uppercase"
                         >
-                            Schedule Consultation
+                            <span>Start Your Project</span>
                             <ArrowRight size={18} />
                         </Link>
                     </motion.div>

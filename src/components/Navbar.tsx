@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Hammer, ShoppingBag, Calendar, ChevronDown, Home, Paintbrush, Menu, X as CloseIcon } from 'lucide-react';
+import { Hammer, Calendar, ChevronDown, Home, Paintbrush, Menu, X as CloseIcon } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useQuote } from '../context/QuoteContext';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const serviceItems = [
@@ -29,7 +28,6 @@ export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
     const [servicesOpen, setServicesOpen] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const { itemCount, toggleCart } = useQuote();
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -47,27 +45,16 @@ export default function Navbar() {
         if (location.pathname !== '/') {
             navigate('/', { state: { scrollTo: id } });
         } else {
-            const el = document.getElementById(id);
-            if (el) el.scrollIntoView({ behavior: 'smooth' });
+            // Add a small delay for same-page scroll to allow mobile menu to close
+            // and prevent UI jank
+            setTimeout(() => {
+                const el = document.getElementById(id);
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }, 300);
         }
     };
 
-    // Handle scroll after navigation
-    useEffect(() => {
-        if (location.state && (location.state as { scrollTo?: string }).scrollTo) {
-            const id = (location.state as { scrollTo: string }).scrollTo;
-            // Wait for page to fully render before scrolling
-            const timer = setTimeout(() => {
-                const el = document.getElementById(id);
-                if (el) {
-                    el.scrollIntoView({ behavior: 'smooth' });
-                }
-            }, 300);
-            // Clear the state
-            window.history.replaceState({}, document.title);
-            return () => clearTimeout(timer);
-        }
-    }, [location]);
+
 
     // Close dropdown when clicking outside
     useEffect(() => {
@@ -94,7 +81,10 @@ export default function Navbar() {
                 <Link
                     to="/"
                     className="text-[#EDEDED] font-semibold text-sm tracking-tight flex items-center gap-2 hover:opacity-80 transition-opacity"
-                    onClick={() => setMobileMenuOpen(false)}
+                    onClick={() => {
+                        setMobileMenuOpen(false);
+                        window.scrollTo(0, 0);
+                    }}
                 >
                     <div className="w-5 h-5 bg-[#C6A87C] rounded-[1px] flex items-center justify-center text-black">
                         <Hammer size={12} strokeWidth={2} />
@@ -194,26 +184,6 @@ export default function Navbar() {
                 </div>
 
                 <div className="flex items-center gap-4">
-                    {/* Cart Button */}
-                    <button
-                        onClick={toggleCart}
-                        className="relative p-2 text-[#888] hover:text-[#EDEDED] transition-colors"
-                    >
-                        <ShoppingBag size={20} />
-                        <AnimatePresence>
-                            {itemCount > 0 && (
-                                <motion.span
-                                    initial={{ scale: 0 }}
-                                    animate={{ scale: 1 }}
-                                    exit={{ scale: 0 }}
-                                    className="absolute -top-1 -right-1 w-5 h-5 bg-[#C6A87C] text-black text-[10px] font-bold rounded-full flex items-center justify-center"
-                                >
-                                    {itemCount}
-                                </motion.span>
-                            )}
-                        </AnimatePresence>
-                    </button>
-
                     {/* Booking Button (Desktop) */}
                     <button
                         onClick={() => scrollToSection('booking')}
@@ -292,7 +262,7 @@ export default function Navbar() {
                                 className="w-full flex items-center justify-center gap-2 bg-[#C6A87C] text-[#050505] font-medium py-4 rounded-lg"
                             >
                                 <Calendar size={18} />
-                                Schedule Free Visit
+                                Schedule Visit
                             </button>
                         </div>
                     </motion.div>

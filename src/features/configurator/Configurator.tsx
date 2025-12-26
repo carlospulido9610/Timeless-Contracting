@@ -1,12 +1,10 @@
 import { useState } from 'react';
-import { Lightbulb, Speaker, Check, Plus } from 'lucide-react';
-import { useQuote } from '../../context/QuoteContext';
+import { Lightbulb, Speaker, Check, Calendar } from 'lucide-react';
 import { useProduct } from '../../context/ProductContext';
 import { motion, AnimatePresence } from 'framer-motion';
-const EXTRAS_LABELS: Record<string, string> = {
-    'lighting': 'LED Integration',
-    'surround': 'Speaker Mesh',
-};
+import { Link } from 'react-router-dom';
+
+
 
 export default function Configurator() {
     type Tab = 'material' | 'finish' | 'extras';
@@ -18,9 +16,6 @@ export default function Configurator() {
     const [wood, setWood] = useState<string>(woodOptions[0]?.id || 'american-walnut');
     const [layout, setLayout] = useState<string>(layoutOptions[0]?.id || 'linear');
     const [extras, setExtras] = useState<string[]>([]);
-    const [addedFeedback, setAddedFeedback] = useState(false);
-
-    const { addToQuote } = useQuote();
 
     const calculatePrice = () => {
         let total = basePrice;
@@ -46,23 +41,6 @@ export default function Configurator() {
                 ? prev.filter((item) => item !== value)
                 : [...prev, value]
         );
-    };
-
-    const handleAddToQuote = () => {
-        const selectedWood = woodOptions.find(w => w.id === wood);
-        const selectedLayout = layoutOptions.find(l => l.id === layout);
-
-        addToQuote({
-            wood: wood as any, // Cast for legacy compatibility if strict types needed
-            woodLabel: selectedWood?.name || wood,
-            layout: layout as any,
-            layoutLabel: selectedLayout?.name || layout,
-            extras,
-            extrasLabels: extras.map(e => EXTRAS_LABELS[e]),
-            price: calculatePrice(),
-        });
-        setAddedFeedback(true);
-        setTimeout(() => setAddedFeedback(false), 2000);
     };
 
     return (
@@ -304,27 +282,13 @@ export default function Configurator() {
                             </span>
                         </div>
                         <div className="flex gap-3">
-                            <motion.button
-                                whileHover={{ scale: 1.02 }}
-                                whileTap={{ scale: 0.98 }}
-                                onClick={handleAddToQuote}
-                                className={`flex-1 font-medium text-[13px] py-3 rounded-[4px] transition-all duration-300 flex items-center justify-center gap-2 ${addedFeedback
-                                    ? 'bg-green-600 text-white hover:bg-green-700'
-                                    : 'bg-[#C6A87C] text-[#050505] hover:bg-[#B59669]'
-                                    }`}
+                            <Link
+                                to="/book"
+                                className="flex-1 font-medium text-[13px] py-3 rounded-[4px] transition-all duration-300 flex items-center justify-center gap-2 bg-[#C6A87C] text-[#050505] hover:bg-[#B59669]"
                             >
-                                {addedFeedback ? (
-                                    <>
-                                        <Check size={16} />
-                                        Added to Quote
-                                    </>
-                                ) : (
-                                    <>
-                                        <Plus size={16} />
-                                        Add to Quote
-                                    </>
-                                )}
-                            </motion.button>
+                                <Calendar size={16} />
+                                Book Consultation
+                            </Link>
                         </div>
                     </div>
                 </div>

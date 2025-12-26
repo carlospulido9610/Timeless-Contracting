@@ -3,15 +3,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
     Paintbrush,
     Check,
-    Plus,
     ArrowRight,
-    Palette,
     Layers,
     Sparkles,
-    DoorOpen
+    DoorOpen,
+    Calendar
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useQuote } from '../../context/QuoteContext';
 
 const processSteps = [
     { number: '01', title: 'Consultation', desc: 'Discuss vision, assess cabinets, provide written quote' },
@@ -51,32 +49,11 @@ export default function CabinetPainting() {
     const [selectedStyle, setSelectedStyle] = useState('shaker');
     const [selectedColor, setSelectedColor] = useState('white');
     const [selectedExtras, setSelectedExtras] = useState<string[]>([]);
-    const [addedFeedback, setAddedFeedback] = useState(false);
-
-    const { addToQuote } = useQuote();
 
     const toggleExtra = (id: string) => {
         setSelectedExtras(prev =>
             prev.includes(id) ? prev.filter(e => e !== id) : [...prev, id]
         );
-    };
-
-    const handleAddToQuote = () => {
-        const styleOption = cabinetStyles.find(s => s.id === selectedStyle);
-        const colorOption = colorOptions.find(c => c.id === selectedColor);
-        const extraLabels = selectedExtras.map(e => extras.find(ex => ex.id === e)?.name || e);
-
-        addToQuote({
-            wood: selectedStyle as any,
-            woodLabel: `Cabinet Painting - ${styleOption?.name}`,
-            layout: selectedColor as any,
-            layoutLabel: `Color: ${colorOption?.name}`,
-            extras: selectedExtras,
-            extrasLabels: extraLabels,
-            price: 0,
-        });
-        setAddedFeedback(true);
-        setTimeout(() => setAddedFeedback(false), 2000);
     };
 
     return (
@@ -352,27 +329,13 @@ export default function CabinetPainting() {
                                     2-3 Weeks
                                 </span>
                             </div>
-                            <motion.button
-                                whileHover={{ scale: 1.02 }}
-                                whileTap={{ scale: 0.98 }}
-                                onClick={handleAddToQuote}
-                                className={`w-full font-medium text-[13px] py-3 rounded-[4px] transition-all duration-300 flex items-center justify-center gap-2 ${addedFeedback
-                                    ? 'bg-green-600 text-white hover:bg-green-700'
-                                    : 'bg-[#C6A87C] text-[#050505] hover:bg-[#B59669]'
-                                    }`}
+                            <Link
+                                to="/book"
+                                className="w-full font-medium text-[13px] py-3 rounded-[4px] transition-all duration-300 flex items-center justify-center gap-2 bg-[#C6A87C] text-[#050505] hover:bg-[#B59669]"
                             >
-                                {addedFeedback ? (
-                                    <>
-                                        <Check size={16} />
-                                        Added to Quote
-                                    </>
-                                ) : (
-                                    <>
-                                        <Plus size={16} />
-                                        Add to Quote
-                                    </>
-                                )}
-                            </motion.button>
+                                <Calendar size={16} />
+                                Book Consultation
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -382,9 +345,9 @@ export default function CabinetPainting() {
             <section className="py-16 border-t border-white/5 bg-gradient-to-b from-[#0A0A0A] to-[#050505]">
                 <div className="max-w-3xl mx-auto px-6 text-center">
                     <h2 className="text-2xl font-medium text-white mb-4">Ready to Refresh Your Kitchen?</h2>
-                    <p className="text-[#888] mb-8">Schedule a free consultation and get a detailed quote.</p>
+                    <p className="text-[#888] mb-8">Schedule a consultation for $100 and get a detailed expert assessment.</p>
                     <Link
-                        to="/#booking"
+                        to="/book"
                         className="inline-flex items-center justify-center gap-2 bg-[#C6A87C] hover:bg-[#B59669] text-black font-medium px-6 py-3 rounded-md transition-colors"
                     >
                         Schedule Consultation

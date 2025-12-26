@@ -9,7 +9,7 @@ export default function QuoteCart() {
 
     const handleCheckout = () => {
         closeCart();
-        navigate('/checkout');
+        navigate('/', { state: { scrollTo: 'booking' } });
     };
 
     return (

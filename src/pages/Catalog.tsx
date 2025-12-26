@@ -481,7 +481,7 @@ export default function Catalog() {
                     <h2 className="text-2xl font-medium text-white mb-4">Ready to Start Your Project?</h2>
                     <p className="text-[#888] mb-8">Schedule a consultation and let's bring your vision to life.</p>
                     <Link
-                        to="/#booking"
+                        to="/book"
                         className="inline-flex items-center gap-2 bg-[#C6A87C] hover:bg-[#B59669] text-black font-medium px-6 py-3 rounded-md transition-colors"
                     >
                         Schedule Consultation
@@ -538,7 +538,7 @@ export default function Catalog() {
                                     </div>
                                 </div>
                                 <Link
-                                    to="/#booking"
+                                    to="/book"
                                     className="w-full inline-flex items-center justify-center gap-2 bg-[#C6A87C] hover:bg-[#B59669] text-black font-medium px-6 py-3 rounded-md transition-colors"
                                 >
                                     Request Similar Project

@@ -9,14 +9,13 @@ import {
     Sparkles,
     Phone,
     Check,
-    Plus,
     ArrowRight,
     Palette,
     Droplets,
-    Shield
+    Shield,
+    Calendar
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useQuote } from '../../context/QuoteContext';
 
 const processSteps = [
     {
@@ -86,9 +85,6 @@ export default function InteriorPainting() {
     const [selectedFinish, setSelectedFinish] = useState('eggshell');
     const [selectedRooms, setSelectedRooms] = useState<string[]>([]);
     const [selectedExtras, setSelectedExtras] = useState<string[]>([]);
-    const [addedFeedback, setAddedFeedback] = useState(false);
-
-    const { addToQuote } = useQuote();
 
     const toggleRoom = (id: string) => {
         setSelectedRooms(prev =>
@@ -102,23 +98,7 @@ export default function InteriorPainting() {
         );
     };
 
-    const handleAddToQuote = () => {
-        const finishOption = paintTypes.find(p => p.id === selectedFinish);
-        const roomLabels = selectedRooms.map(r => roomOptions.find(ro => ro.id === r)?.name || r);
-        const extraLabels = selectedExtras.map(e => extras.find(ex => ex.id === e)?.name || e);
-
-        addToQuote({
-            wood: selectedFinish as any,
-            woodLabel: `Interior Painting - ${finishOption?.name}`,
-            layout: 'interior-painting' as any,
-            layoutLabel: `Rooms: ${roomLabels.join(', ') || 'TBD'}`,
-            extras: selectedExtras,
-            extrasLabels: extraLabels,
-            price: 0, // Price TBD
-        });
-        setAddedFeedback(true);
-        setTimeout(() => setAddedFeedback(false), 2000);
-    };
+    // Navigation to booking handled by Link below
 
     return (
         <div className="min-h-screen bg-[#050505] pt-20">
@@ -376,27 +356,13 @@ export default function InteriorPainting() {
                                     Quote on Request
                                 </span>
                             </div>
-                            <motion.button
-                                whileHover={{ scale: 1.02 }}
-                                whileTap={{ scale: 0.98 }}
-                                onClick={handleAddToQuote}
-                                className={`w-full font-medium text-[13px] py-3 rounded-[4px] transition-all duration-300 flex items-center justify-center gap-2 ${addedFeedback
-                                    ? 'bg-green-600 text-white hover:bg-green-700'
-                                    : 'bg-[#C6A87C] text-[#050505] hover:bg-[#B59669]'
-                                    }`}
+                            <Link
+                                to="/book"
+                                className="w-full font-medium text-[13px] py-3 rounded-[4px] transition-all duration-300 flex items-center justify-center gap-2 bg-[#C6A87C] text-[#050505] hover:bg-[#B59669]"
                             >
-                                {addedFeedback ? (
-                                    <>
-                                        <Check size={16} />
-                                        Added to Quote
-                                    </>
-                                ) : (
-                                    <>
-                                        <Plus size={16} />
-                                        Add to Quote
-                                    </>
-                                )}
-                            </motion.button>
+                                <Calendar size={16} />
+                                Book Consultation
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -408,11 +374,12 @@ export default function InteriorPainting() {
                     <h2 className="text-2xl font-medium text-white mb-4">Ready to Transform Your Space?</h2>
                     <p className="text-[#888] mb-8">Schedule a free consultation and let's discuss your project.</p>
                     <Link
-                        to="/#booking"
-                        className="inline-flex items-center justify-center gap-2 bg-[#C6A87C] hover:bg-[#B59669] text-black font-medium px-6 py-3 rounded-md transition-colors"
+                        to="/"
+                        state={{ scrollTo: 'booking' }}
+                        className="inline-flex items-center gap-2 bg-[#C6A87C] text-[#050505] px-8 py-4 rounded-lg hover:bg-[#B59669] transition-all font-medium"
                     >
-                        Schedule Consultation
-                        <ArrowRight size={18} />
+                        <span>Schedule Consultation</span>
+                        <ArrowRight size={20} />
                     </Link>
                 </div>
             </section>
