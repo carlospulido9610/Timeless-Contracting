@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+/* Base settings */
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: #050505;
+    color: #A1A1AA;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    position: relative;
+    overflow-x: hidden;
+}
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Outfit', sans-serif;
+    color: #EDEDED;
+    letter-spacing: 0.01em;
+    font-weight: 500;
+    line-height: 1.1;
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: #18181B;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #3F3F46;
+    border-radius: 2px;
+}
+
+/* Tesla-style Pill & Radio Logic */
+.pill-radio:checked+div {
+    background-color: #EDEDED;
+    color: #000000;
+    font-weight: 500;
+    border-color: #EDEDED;
+}
+
+.option-radio:checked+div {
+    border-color: #C6A87C;
+    background-color: #121212;
+}
+
+.option-radio:checked+div .check-icon {
+    opacity: 1;
+}
+
+/* Typography & Spacing refinement */
+section {
+    padding: 8rem 0;
+}
+
+@media (max-width: 768px) {
+    section {
+        padding-top: 6rem !important;
+        padding-bottom: 6rem !important;
+    }
+}
