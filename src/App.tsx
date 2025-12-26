@@ -4,6 +4,9 @@ import { ProductProvider } from './context/ProductContext';
 import Home from './pages/Home';
 import About from './pages/About';
 import Services from './pages/Services';
+import InteriorPainting from './pages/services/InteriorPainting';
+import CabinetPainting from './pages/services/CabinetPainting';
+import Carpentry from './pages/services/Carpentry';
 import Catalog from './pages/Catalog';
 import Checkout from './pages/Checkout';
 import AdminPanel from './layers/AdminPanel';
@@ -25,6 +28,9 @@ function App() {
                             <Route path="/" element={<Home />} />
                             <Route path="/about" element={<About />} />
                             <Route path="/services" element={<Services />} />
+                            <Route path="/services/interior-painting" element={<InteriorPainting />} />
+                            <Route path="/services/cabinet-painting" element={<CabinetPainting />} />
+                            <Route path="/services/carpentry" element={<Carpentry />} />
                             <Route path="/catalog" element={<Catalog />} />
                             <Route path="/checkout" element={<Checkout />} />
                             <Route path="/admin" element={<AdminPanel />} />

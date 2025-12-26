@@ -1,5 +1,4 @@
 import { ArrowRight, Monitor, Grid, Briefcase, Box, Shirt, Layers, Star, Check, Calendar } from 'lucide-react';
-import Configurator from '../features/configurator/Configurator';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import visionImg from '../assets/home/vision_brand.png';
@@ -63,9 +62,7 @@ export default function Home() {
                             <h2 className="text-3xl tracking-tight mb-2 font-medium text-white">What We Do</h2>
                             <p className="text-sm text-[#666] max-w-sm">Custom carpentry and professional painting services tailored to your home.</p>
                         </div>
-                        <a href="#configurator" className="text-xs text-[#EDEDED] hover:text-[#C6A87C] transition-colors flex items-center gap-2">
-                            Try the Configurator <ArrowRight size={12} />
-                        </a>
+
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-[#1F1F22] border border-[#1F1F22]">
@@ -100,7 +97,7 @@ export default function Home() {
                 </div>
             </section>
 
-            <Configurator />
+
 
             <section id="about" className="py-24 bg-[#080808] border-t border-white/5">
                 <div className="max-w-7xl mx-auto px-6">
