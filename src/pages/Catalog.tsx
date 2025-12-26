@@ -203,64 +203,86 @@ export default function Catalog() {
                 </div>
             </section>
 
-            {/* Project Grid */}
-            <section className="py-12 relative z-10">
-                <div className="max-w-7xl mx-auto px-6">
-                    <motion.div
-                        layout
-                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-                    >
-                        <AnimatePresence mode="popLayout">
-                            {filteredProjects.map((project) => (
-                                <motion.div
-                                    key={project.id}
-                                    layout
-                                    initial={{ opacity: 0, scale: 0.9 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    exit={{ opacity: 0, scale: 0.9 }}
-                                    transition={{ duration: 0.3 }}
-                                    onClick={() => setSelectedProject(project)}
-                                    className="group relative aspect-[4/3] rounded-xl overflow-hidden cursor-pointer bg-[#111]"
-                                >
-                                    <img
-                                        src={project.image}
-                                        alt={project.title}
-                                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                                    />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-60 group-hover:opacity-100 transition-opacity" />
+            {/* Project Grid - Full Bleed Editorial Style */}
+            <section className="relative z-10">
+                <motion.div layout className="flex flex-col">
+                    <AnimatePresence mode="popLayout">
+                        {filteredProjects.map((project, index) => (
+                            <motion.div
+                                key={project.id}
+                                layout
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 0.4, delay: index * 0.05 }}
+                                onClick={() => setSelectedProject(project)}
+                                className="group relative w-full h-[70vh] md:h-[80vh] overflow-hidden cursor-pointer"
+                            >
+                                {/* Full Bleed Image */}
+                                <img
+                                    src={project.image}
+                                    alt={project.title}
+                                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                                />
 
-                                    {/* Always visible title */}
-                                    <div className="absolute bottom-0 left-0 right-0 p-5">
-                                        <h3 className="text-white font-medium text-lg mb-1">{project.title}</h3>
-                                        <p className="text-[#888] text-sm">{project.location}</p>
-                                    </div>
+                                {/* Gradient Overlay - Stronger at bottom */}
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
-                                    {/* Hover info */}
-                                    <div className="absolute inset-0 p-5 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/70">
-                                        <h3 className="text-white font-medium text-xl mb-4">{project.title}</h3>
-                                        <div className="space-y-2 text-sm">
-                                            <div className="flex justify-between gap-8">
-                                                <span className="text-[#666]">Wood:</span>
-                                                <span className="text-white">{project.specs.wood}</span>
-                                            </div>
-                                            <div className="flex justify-between gap-8">
-                                                <span className="text-[#666]">Finish:</span>
-                                                <span className="text-white">{project.specs.finish}</span>
-                                            </div>
-                                            <div className="flex justify-between gap-8">
-                                                <span className="text-[#666]">Size:</span>
-                                                <span className="text-white">{project.specs.size}</span>
+                                {/* Content Overlay */}
+                                <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 20 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 0.5, delay: 0.2 }}
+                                    >
+                                        {/* Category Tag */}
+                                        <span className="inline-block px-3 py-1 bg-white/10 backdrop-blur-sm text-white/70 text-xs uppercase tracking-wider mb-4 border border-white/10">
+                                            {project.category.replace('-', ' ')}
+                                        </span>
+
+                                        {/* Title */}
+                                        <h3 className="text-3xl md:text-4xl lg:text-5xl font-medium text-white mb-2 tracking-tight">
+                                            {project.title}
+                                        </h3>
+
+                                        {/* Subtitle / CTA */}
+                                        <div className="flex items-center gap-6 mt-4">
+                                            <span className="text-white/60 text-sm md:text-base">
+                                                {project.location}
+                                            </span>
+                                            <span className="text-[#C6A87C] text-sm md:text-base font-medium group-hover:underline transition-all flex items-center gap-2">
+                                                See Products
+                                                <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+                                            </span>
+                                        </div>
+
+                                        {/* Specs - Revealed on Hover */}
+                                        <div className="mt-6 overflow-hidden">
+                                            <div className="flex flex-wrap gap-4 md:gap-8 transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                                                <div className="flex items-center gap-2">
+                                                    <span className="text-white/40 text-sm">Wood:</span>
+                                                    <span className="text-white text-sm">{project.specs.wood}</span>
+                                                </div>
+                                                <div className="flex items-center gap-2">
+                                                    <span className="text-white/40 text-sm">Finish:</span>
+                                                    <span className="text-white text-sm">{project.specs.finish}</span>
+                                                </div>
+                                                <div className="flex items-center gap-2">
+                                                    <span className="text-white/40 text-sm">Size:</span>
+                                                    <span className="text-white text-sm">{project.specs.size}</span>
+                                                </div>
                                             </div>
                                         </div>
-                                        <button className="mt-6 px-4 py-2 bg-[#C6A87C] text-black text-sm font-medium rounded-md hover:bg-[#B59669] transition-colors">
-                                            View Details
-                                        </button>
-                                    </div>
-                                </motion.div>
-                            ))}
-                        </AnimatePresence>
-                    </motion.div>
-                </div>
+                                    </motion.div>
+                                </div>
+
+                                {/* Decorative Line */}
+                                <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+                            </motion.div>
+                        ))}
+                    </AnimatePresence>
+                </motion.div>
             </section>
 
             {/* Tesla-style Configurator Preview */}
