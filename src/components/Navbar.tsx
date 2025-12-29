@@ -1,9 +1,15 @@
 import { useState, useEffect } from 'react';
-import { Hammer, Calendar, ChevronDown, Home, Paintbrush, Menu, X as CloseIcon } from 'lucide-react';
+import { Hammer, Calendar, ChevronDown, Home, Paintbrush, Menu, X as CloseIcon, Clock } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const serviceItems = [
+    {
+        title: 'Expert Carpentry',
+        description: 'Custom carpentry solutions',
+        link: '/services/carpentry',
+        icon: Hammer
+    },
     {
         title: 'Interior Painting',
         description: 'Professional interior painting services',
@@ -15,29 +21,16 @@ const serviceItems = [
         description: 'Factory-smooth cabinet refinishing',
         link: '/services/cabinet-painting',
         icon: Paintbrush
-    },
-    {
-        title: 'Expert Carpentry',
-        description: 'Custom carpentry solutions',
-        link: '/services/carpentry',
-        icon: Hammer
     }
 ];
 
 export default function Navbar() {
-    const [scrolled, setScrolled] = useState(false);
     const [servicesOpen, setServicesOpen] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const location = useLocation();
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const handleScroll = () => {
-            setScrolled(window.scrollY > 50);
-        };
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+
 
     const scrollToSection = (id: string) => {
         setMobileMenuOpen(false);
@@ -72,24 +65,19 @@ export default function Navbar() {
 
     return (
         <nav
-            className={`fixed w-full z-40 top-0 transition-all duration-500 ease-in-out ${scrolled
-                ? 'py-1 bg-[#050505]/90 backdrop-blur-xl border-b border-white/10 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)]'
-                : 'py-2 bg-transparent border-b border-transparent'
-                }`}
+            className="fixed w-full z-40 top-0 py-1 bg-white border-b border-gray-200 shadow-sm"
         >
             <div className="max-w-7xl mx-auto px-6 py-2 flex justify-between items-center">
                 <Link
                     to="/"
-                    className="text-[#EDEDED] font-semibold text-sm tracking-tight flex items-center gap-2 hover:opacity-80 transition-opacity"
+                    className="text-xl font-semibold tracking-tight flex items-center gap-2 hover:opacity-80 transition-opacity"
                     onClick={() => {
                         setMobileMenuOpen(false);
                         window.scrollTo(0, 0);
                     }}
                 >
-                    <div className="w-5 h-5 bg-[#C6A87C] rounded-[1px] flex items-center justify-center text-black">
-                        <Hammer size={12} strokeWidth={2} />
-                    </div>
-                    Timeless Contracting
+                    <Clock size={22} className="text-[#1483ca]" strokeWidth={2} />
+                    <span><span className="text-[#1483ca]">Timeless</span> <span className="text-gray-900">Contracting</span></span>
                 </Link>
 
                 <div className="hidden md:flex items-center space-x-8">
@@ -97,7 +85,7 @@ export default function Navbar() {
                         <Link
                             key={link.name}
                             to={link.to}
-                            className="text-[13px] text-[#888] font-normal hover:text-[#EDEDED] transition-colors"
+                            className="text-[13px] text-gray-500 font-medium hover:text-black transition-colors"
                         >
                             {link.name}
                         </Link>
@@ -110,7 +98,7 @@ export default function Navbar() {
                         onMouseLeave={() => setServicesOpen(false)}
                     >
                         <button
-                            className="flex items-center gap-1 text-[13px] text-[#888] font-normal hover:text-[#EDEDED] transition-colors"
+                            className="flex items-center gap-1 text-[13px] text-gray-500 font-medium hover:text-black transition-colors"
                             onClick={(e) => {
                                 e.stopPropagation();
                                 setServicesOpen(!servicesOpen);
@@ -130,11 +118,11 @@ export default function Navbar() {
                                     animate={{ opacity: 1, y: 0, scale: 1 }}
                                     exit={{ opacity: 0, y: 10, scale: 0.95 }}
                                     transition={{ duration: 0.2, ease: 'easeOut' }}
-                                    className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-72 bg-[#0A0A0A]/95 backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl shadow-black/50 overflow-hidden"
+                                    className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-72 bg-white/95 backdrop-blur-xl border border-gray-200 rounded-xl shadow-2xl shadow-black/10 overflow-hidden"
                                     onClick={(e) => e.stopPropagation()}
                                 >
                                     {/* Arrow pointer */}
-                                    <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-[#0A0A0A]/95 border-l border-t border-white/10 rotate-45" />
+                                    <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white/95 border-l border-t border-gray-200 rotate-45" />
 
                                     <div className="relative p-2">
                                         {/* View All Services Link */}
@@ -145,18 +133,18 @@ export default function Navbar() {
                                             <Link
                                                 key={service.title}
                                                 to={service.link}
-                                                className={`group flex items-start gap-3 p-3 hover:bg-white/5 transition-colors ${index === 0 ? 'rounded-t-lg' : ''} ${index === serviceItems.length - 1 ? 'rounded-b-lg' : ''
+                                                className={`group flex items-start gap-3 p-3 hover:bg-gray-50 transition-colors ${index === 0 ? 'rounded-t-lg' : ''} ${index === serviceItems.length - 1 ? 'rounded-b-lg' : ''
                                                     }`}
                                                 onClick={() => setServicesOpen(false)}
                                             >
-                                                <div className="w-9 h-9 bg-[#C6A87C]/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-[#C6A87C]/20 transition-colors">
-                                                    <service.icon size={18} className="text-[#C6A87C]" />
+                                                <div className="w-9 h-9 bg-[#1483ca]/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-[#1483ca]/20 transition-colors">
+                                                    <service.icon size={18} className="text-[#1483ca]" />
                                                 </div>
                                                 <div className="flex-1 min-w-0">
-                                                    <div className="text-[13px] font-medium text-[#EDEDED] group-hover:text-[#C6A87C] transition-colors">
+                                                    <div className="text-[13px] font-medium text-gray-900 group-hover:text-[#1483ca] transition-colors">
                                                         {service.title}
                                                     </div>
-                                                    <div className="text-[11px] text-[#666] mt-0.5 leading-tight">
+                                                    <div className="text-[11px] text-gray-500 mt-0.5 leading-tight">
                                                         {service.description}
                                                     </div>
                                                 </div>
@@ -171,13 +159,13 @@ export default function Navbar() {
 
                     <Link
                         to="/about"
-                        className="text-[13px] text-[#888] font-normal hover:text-[#EDEDED] transition-colors"
+                        className="text-[13px] text-gray-500 font-medium hover:text-black transition-colors"
                     >
                         About
                     </Link>
                     <button
                         onClick={() => scrollToSection('process')}
-                        className="text-[13px] text-[#888] font-normal hover:text-[#EDEDED] transition-colors"
+                        className="text-[13px] text-gray-500 font-medium hover:text-black transition-colors"
                     >
                         Process
                     </button>
@@ -186,8 +174,8 @@ export default function Navbar() {
                 <div className="flex items-center gap-4">
                     {/* Booking Button (Desktop) */}
                     <button
-                        onClick={() => scrollToSection('booking')}
-                        className="hidden md:flex items-center gap-2 bg-[#C6A87C] text-[#050505] hover:bg-[#B59669] transition-colors font-medium text-[12px] px-4 py-2 rounded-[4px]"
+                        onClick={() => scrollToSection('hero')}
+                        className="hidden md:flex items-center gap-2 bg-[#1483ca] text-white hover:bg-[#106ba3] transition-colors font-medium text-[12px] px-4 py-2 rounded-[4px]"
                     >
                         <Calendar size={14} />
                         Schedule Visit
@@ -195,7 +183,7 @@ export default function Navbar() {
 
                     {/* Mobile Menu Toggle */}
                     <button
-                        className="p-2 md:hidden text-[#888] hover:text-[#EDEDED] transition-colors"
+                        className="p-2 md:hidden text-gray-600 hover:text-black transition-colors"
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                     >
                         {mobileMenuOpen ? <CloseIcon size={24} /> : <Menu size={24} />}
@@ -211,7 +199,7 @@ export default function Navbar() {
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
                         transition={{ duration: 0.3, ease: 'easeInOut' }}
-                        className="md:hidden bg-[#0A0A0A] border-b border-white/10 overflow-hidden"
+                        className="md:hidden bg-white border-b border-gray-200 overflow-hidden"
                     >
                         <div className="p-6 space-y-6">
                             <div className="grid grid-cols-1 gap-4">
@@ -219,7 +207,7 @@ export default function Navbar() {
                                     <Link
                                         key={link.name}
                                         to={link.to}
-                                        className="text-lg text-white font-medium px-2 py-2"
+                                        className="text-lg text-gray-900 font-medium px-2 py-2"
                                         onClick={() => setMobileMenuOpen(false)}
                                     >
                                         {link.name}
@@ -227,14 +215,14 @@ export default function Navbar() {
                                 ))}
                                 <button
                                     onClick={() => scrollToSection('process')}
-                                    className="text-lg text-white font-medium px-2 py-2 text-left"
+                                    className="text-lg text-gray-900 font-medium px-2 py-2 text-left"
                                 >
                                     Process
                                 </button>
                             </div>
 
                             <div className="pt-4 border-t border-white/5">
-                                <span className="text-[10px] font-bold text-[#555] uppercase tracking-widest block mb-4 px-2">
+                                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-4 px-2">
                                     Our Services
                                 </span>
                                 <div className="grid grid-cols-1 gap-2">
@@ -242,15 +230,15 @@ export default function Navbar() {
                                         <Link
                                             key={service.title}
                                             to={service.link}
-                                            className="flex items-center gap-4 p-3 bg-white/5 rounded-lg active:bg-white/10"
+                                            className="flex items-center gap-4 p-3 bg-gray-50 rounded-lg active:bg-gray-100"
                                             onClick={() => setMobileMenuOpen(false)}
                                         >
-                                            <div className="w-10 h-10 bg-[#C6A87C]/10 rounded-lg flex items-center justify-center">
-                                                <service.icon size={20} className="text-[#C6A87C]" />
+                                            <div className="w-10 h-10 bg-[#1483ca]/10 rounded-lg flex items-center justify-center">
+                                                <service.icon size={20} className="text-[#1483ca]" />
                                             </div>
                                             <div>
-                                                <div className="text-sm font-medium text-white">{service.title}</div>
-                                                <div className="text-[11px] text-[#666]">{service.description}</div>
+                                                <div className="text-sm font-medium text-gray-900">{service.title}</div>
+                                                <div className="text-[11px] text-gray-500">{service.description}</div>
                                             </div>
                                         </Link>
                                     ))}
@@ -258,8 +246,8 @@ export default function Navbar() {
                             </div>
 
                             <button
-                                onClick={() => scrollToSection('booking')}
-                                className="w-full flex items-center justify-center gap-2 bg-[#C6A87C] text-[#050505] font-medium py-4 rounded-lg"
+                                onClick={() => scrollToSection('hero')}
+                                className="w-full flex items-center justify-center gap-2 bg-[#1483ca] text-white hover:bg-[#106ba3] font-medium py-4 rounded-lg"
                             >
                                 <Calendar size={18} />
                                 Schedule Visit

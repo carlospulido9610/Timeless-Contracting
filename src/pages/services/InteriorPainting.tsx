@@ -101,10 +101,10 @@ export default function InteriorPainting() {
     // Navigation to booking handled by Link below
 
     return (
-        <div className="min-h-screen bg-[#050505] pt-20">
+        <div className="min-h-screen bg-gray-50 pt-20">
             {/* Hero */}
-            <section className="relative py-16 overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-b from-[#C6A87C]/5 to-transparent" />
+            <section className="relative py-6 md:py-12 overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-b from-[#1483ca]/5 to-transparent" />
                 <div className="max-w-6xl mx-auto px-6 relative">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
@@ -113,19 +113,19 @@ export default function InteriorPainting() {
                     >
                         <Link
                             to="/services"
-                            className="inline-flex items-center gap-2 text-[#888] hover:text-[#C6A87C] text-sm mb-6 transition-colors"
+                            className="inline-flex items-center gap-2 text-gray-500 hover:text-[#1483ca] text-sm mb-6 transition-colors"
                         >
                             ← Back to Services
                         </Link>
                         <div className="flex items-center gap-4 mb-6">
-                            <div className="w-14 h-14 bg-[#C6A87C]/10 rounded-xl flex items-center justify-center">
-                                <Home size={28} className="text-[#C6A87C]" />
+                            <div className="w-14 h-14 bg-[#1483ca]/10 rounded-xl flex items-center justify-center">
+                                <Home size={28} className="text-[#1483ca]" />
                             </div>
                             <div>
-                                <h1 className="text-4xl md:text-5xl font-medium text-white tracking-tight">
+                                <h1 className="text-4xl md:text-5xl font-medium text-gray-900 tracking-tight">
                                     Interior Painting
                                 </h1>
-                                <p className="text-[#888] mt-1">Professional residential painting services</p>
+                                <p className="text-gray-500 mt-1">Professional residential painting services</p>
                             </div>
                         </div>
                     </motion.div>
@@ -133,10 +133,10 @@ export default function InteriorPainting() {
             </section>
 
             {/* Main Content: Info + Configurator */}
-            <section className="border-t border-white/5">
+            <section>
                 <div className="flex flex-col lg:flex-row min-h-[80vh]">
                     {/* Left: Information */}
-                    <div className="w-full lg:w-1/2 p-8 lg:p-12 border-r border-white/5">
+                    <div className="w-full lg:w-1/2 p-8 lg:p-12 border-r border-gray-200">
                         <motion.div
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}
@@ -154,7 +154,7 @@ export default function InteriorPainting() {
                             </div>
 
                             {/* Description */}
-                            <p className="text-[#A1A1AA] leading-relaxed mb-8">
+                            <p className="text-gray-500 leading-relaxed mb-8">
                                 Whether you're refreshing a single room or giving your entire home a makeover,
                                 our experienced team delivers clean lines, smooth finishes, and stress-free service.
                                 We use premium Sherwin Williams paints for lasting beauty.
@@ -163,14 +163,14 @@ export default function InteriorPainting() {
                             {/* Tags */}
                             <div className="flex flex-wrap gap-2 mb-10">
                                 {['Low-VOC Paints', 'Sherwin Williams', 'Clean Edges', 'Protected Floors'].map((tag) => (
-                                    <span key={tag} className="px-3 py-1 bg-[#111] border border-white/5 rounded-full text-xs text-[#888]">
+                                    <span key={tag} className="px-3 py-1 bg-gray-50 border border-gray-200 rounded-full text-xs text-gray-500 shadow-sm">
                                         {tag}
                                     </span>
                                 ))}
                             </div>
 
                             {/* Process Steps */}
-                            <h3 className="text-sm font-medium text-[#666] uppercase tracking-wider mb-6">Our Process</h3>
+                            <h3 className="text-sm font-medium text-gray-900 uppercase tracking-wider mb-6">Our Process</h3>
                             <div className="space-y-3">
                                 {processSteps.map((step, i) => (
                                     <motion.div
@@ -179,17 +179,17 @@ export default function InteriorPainting() {
                                         whileInView={{ opacity: 1, y: 0 }}
                                         viewport={{ once: true }}
                                         transition={{ delay: i * 0.05 }}
-                                        className="flex gap-4 p-4 bg-[#0A0A0A] border border-white/5 rounded-lg hover:border-white/10 transition-colors"
+                                        className="flex gap-4 p-4 bg-gray-50 border border-gray-200 rounded-lg hover:border-[#1483ca]/30 transition-all shadow-sm"
                                     >
-                                        <div className="flex-shrink-0 w-10 h-10 bg-[#C6A87C]/10 rounded-lg flex items-center justify-center">
-                                            <step.icon size={18} className="text-[#C6A87C]" />
+                                        <div className="flex-shrink-0 w-10 h-10 bg-[#1483ca]/10 rounded-lg flex items-center justify-center">
+                                            <step.icon size={18} className="text-[#1483ca]" />
                                         </div>
                                         <div>
                                             <div className="flex items-center gap-2 mb-1">
-                                                <span className="text-[10px] font-mono text-[#C6A87C]">{step.number}</span>
-                                                <h4 className="text-white font-medium text-sm">{step.title}</h4>
+                                                <span className="text-[10px] font-mono text-[#1483ca]">{step.number}</span>
+                                                <h4 className="text-gray-900 font-medium text-sm">{step.title}</h4>
                                             </div>
-                                            <p className="text-[#666] text-xs leading-relaxed">{step.content}</p>
+                                            <p className="text-gray-500 text-xs leading-relaxed">{step.content}</p>
                                         </div>
                                     </motion.div>
                                 ))}
@@ -198,26 +198,26 @@ export default function InteriorPainting() {
                     </div>
 
                     {/* Right: Configurator */}
-                    <div className="w-full lg:w-1/2 bg-[#080808] flex flex-col">
+                    <div className="w-full lg:w-1/2 bg-white flex flex-col">
                         {/* Header */}
-                        <div className="p-8 border-b border-white/5">
+                        <div className="p-8 border-b border-gray-200">
                             <div className="flex items-center gap-2 mb-4">
                                 <span className="w-2 h-2 rounded-full bg-green-500"></span>
-                                <span className="text-[11px] font-medium text-[#888]">CONFIGURATOR</span>
+                                <span className="text-[11px] font-medium text-gray-500">CONFIGURATOR</span>
                             </div>
-                            <h2 className="text-xl text-white font-medium">Customize Your Project</h2>
+                            <h2 className="text-xl text-gray-900 font-medium">Customize Your Project</h2>
                         </div>
 
                         {/* Tabs */}
                         <div className="px-8 pt-6">
-                            <div className="flex bg-[#121212] p-1 rounded-md w-full border border-white/5">
+                            <div className="flex bg-gray-100 p-1 rounded-md w-full border border-gray-200">
                                 {(['finish', 'rooms', 'extras'] as Tab[]).map((tab) => (
                                     <button
                                         key={tab}
                                         onClick={() => setActiveTab(tab)}
                                         className={`w-1/3 py-2 px-3 rounded-[4px] text-[12px] font-medium transition-all border border-transparent capitalize ${activeTab === tab
-                                            ? 'bg-[#EDEDED] text-[#000000] border-[#EDEDED]'
-                                            : 'text-[#666] hover:text-[#EDEDED]'
+                                            ? 'bg-white text-[#1483ca] border-gray-200 shadow-sm'
+                                            : 'text-gray-500 hover:text-gray-900'
                                             }`}
                                     >
                                         {tab}
@@ -236,7 +236,7 @@ export default function InteriorPainting() {
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, y: -10 }}
                                     >
-                                        <span className="text-[11px] font-medium text-[#555] block mb-4 uppercase tracking-wider">
+                                        <span className="text-[11px] font-medium text-gray-500 block mb-4 uppercase tracking-wider">
                                             Paint Finish
                                         </span>
                                         <div className="space-y-3">
@@ -246,22 +246,22 @@ export default function InteriorPainting() {
                                                     whileHover={{ scale: 1.01 }}
                                                     whileTap={{ scale: 0.99 }}
                                                     onClick={() => setSelectedFinish(opt.id)}
-                                                    className={`cursor-pointer border bg-[#0A0A0A] rounded-md p-3 flex items-center justify-between transition-all ${selectedFinish === opt.id
-                                                        ? 'border-[#C6A87C] bg-[#121212]'
-                                                        : 'border-white/5 hover:border-white/20'
+                                                    className={`cursor-pointer border bg-white rounded-md p-3 flex items-center justify-between transition-all shadow-sm ${selectedFinish === opt.id
+                                                        ? 'border-[#1483ca] bg-blue-50/10'
+                                                        : 'border-gray-200 hover:border-[#1483ca]/30'
                                                         }`}
                                                 >
                                                     <div className="flex items-center gap-4">
                                                         <div
-                                                            className="w-8 h-8 rounded-full ring-1 ring-white/10"
+                                                            className="w-8 h-8 rounded-full ring-1 ring-gray-200"
                                                             style={{ backgroundColor: opt.color }}
                                                         />
                                                         <div>
-                                                            <span className="block text-sm text-white font-medium">{opt.name}</span>
-                                                            <span className="text-[11px] text-[#555]">{opt.desc}</span>
+                                                            <span className="block text-sm text-gray-900 font-medium">{opt.name}</span>
+                                                            <span className="text-[11px] text-gray-500">{opt.desc}</span>
                                                         </div>
                                                     </div>
-                                                    {selectedFinish === opt.id && <Check size={14} className="text-[#C6A87C]" />}
+                                                    {selectedFinish === opt.id && <Check size={14} className="text-[#1483ca]" />}
                                                 </motion.div>
                                             ))}
                                         </div>
@@ -275,7 +275,7 @@ export default function InteriorPainting() {
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, y: -10 }}
                                     >
-                                        <span className="text-[11px] font-medium text-[#555] block mb-4 uppercase tracking-wider">
+                                        <span className="text-[11px] font-medium text-gray-500 block mb-4 uppercase tracking-wider">
                                             Select Rooms
                                         </span>
                                         <div className="grid grid-cols-2 gap-3">
@@ -285,15 +285,15 @@ export default function InteriorPainting() {
                                                     whileHover={{ scale: 1.02 }}
                                                     whileTap={{ scale: 0.98 }}
                                                     onClick={() => toggleRoom(opt.id)}
-                                                    className={`cursor-pointer border bg-[#0A0A0A] rounded-md p-4 text-center transition-all relative ${selectedRooms.includes(opt.id)
-                                                        ? 'border-[#C6A87C] bg-[#121212]'
-                                                        : 'border-white/5 hover:border-white/20'
+                                                    className={`cursor-pointer border bg-white rounded-md p-4 text-center transition-all relative shadow-sm ${selectedRooms.includes(opt.id)
+                                                        ? 'border-[#1483ca] bg-blue-50/10'
+                                                        : 'border-gray-200 hover:border-[#1483ca]/30'
                                                         }`}
                                                 >
-                                                    <span className="block text-sm text-white mb-1 font-medium">{opt.name}</span>
-                                                    <span className="text-[11px] text-[#555]">{opt.desc}</span>
+                                                    <span className="block text-sm text-gray-900 mb-1 font-medium">{opt.name}</span>
+                                                    <span className="text-[11px] text-gray-500">{opt.desc}</span>
                                                     {selectedRooms.includes(opt.id) && (
-                                                        <div className="absolute top-2 right-2 text-[#C6A87C]">
+                                                        <div className="absolute top-2 right-2 text-[#1483ca]">
                                                             <Check size={12} />
                                                         </div>
                                                     )}
@@ -310,7 +310,7 @@ export default function InteriorPainting() {
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, y: -10 }}
                                     >
-                                        <span className="text-[11px] font-medium text-[#555] block mb-4 uppercase tracking-wider">
+                                        <span className="text-[11px] font-medium text-gray-500 block mb-4 uppercase tracking-wider">
                                             Enhancements
                                         </span>
                                         <div className="space-y-3">
@@ -320,21 +320,21 @@ export default function InteriorPainting() {
                                                     whileHover={{ scale: 1.01 }}
                                                     whileTap={{ scale: 0.99 }}
                                                     onClick={() => toggleExtra(opt.id)}
-                                                    className={`cursor-pointer border bg-[#0A0A0A] rounded-md p-3 flex items-center justify-between transition-all ${selectedExtras.includes(opt.id)
-                                                        ? 'border-[#C6A87C] bg-[#121212]'
-                                                        : 'border-white/5 hover:border-white/20'
+                                                    className={`cursor-pointer border bg-white rounded-md p-3 flex items-center justify-between transition-all shadow-sm ${selectedExtras.includes(opt.id)
+                                                        ? 'border-[#1483ca] bg-blue-50/10'
+                                                        : 'border-gray-200 hover:border-[#1483ca]/30'
                                                         }`}
                                                 >
                                                     <div className="flex items-center gap-4">
-                                                        <div className="w-8 h-8 rounded-full bg-[#C6A87C]/20 text-[#C6A87C] flex items-center justify-center ring-1 ring-white/10">
+                                                        <div className="w-8 h-8 rounded-full bg-[#1483ca]/10 text-[#1483ca] flex items-center justify-center ring-1 ring-gray-200">
                                                             <opt.icon size={16} />
                                                         </div>
                                                         <div>
-                                                            <span className="block text-sm text-white font-medium">{opt.name}</span>
-                                                            <span className="text-[11px] text-[#555]">{opt.desc}</span>
+                                                            <span className="block text-sm text-gray-900 font-medium">{opt.name}</span>
+                                                            <span className="text-[11px] text-gray-500">{opt.desc}</span>
                                                         </div>
                                                     </div>
-                                                    {selectedExtras.includes(opt.id) && <Check size={14} className="text-[#C6A87C]" />}
+                                                    {selectedExtras.includes(opt.id) && <Check size={14} className="text-[#1483ca]" />}
                                                 </motion.div>
                                             ))}
                                         </div>
@@ -344,21 +344,21 @@ export default function InteriorPainting() {
                         </div>
 
                         {/* Footer */}
-                        <div className="bg-[#050505] border-t border-white/5 p-6">
+                        <div className="bg-white border-t border-gray-200 p-6">
                             <div className="flex justify-between items-center mb-4">
                                 <div>
-                                    <span className="text-[11px] text-[#666] block mb-1">Selected Configuration</span>
-                                    <span className="text-sm text-white">
+                                    <span className="text-[11px] text-gray-500 block mb-1">Selected Configuration</span>
+                                    <span className="text-sm text-gray-900">
                                         {paintTypes.find(p => p.id === selectedFinish)?.name} • {selectedRooms.length} rooms
                                     </span>
                                 </div>
-                                <span className="text-[10px] text-[#C6A87C] bg-[#C6A87C]/5 border border-[#C6A87C]/20 px-2 py-1 rounded font-mono">
+                                <span className="text-[10px] text-[#1483ca] bg-[#1483ca]/5 border border-[#1483ca]/20 px-2 py-1 rounded font-mono">
                                     Quote on Request
                                 </span>
                             </div>
                             <Link
                                 to="/book"
-                                className="w-full font-medium text-[13px] py-3 rounded-[4px] transition-all duration-300 flex items-center justify-center gap-2 bg-[#C6A87C] text-[#050505] hover:bg-[#B59669]"
+                                className="w-full font-medium text-[13px] py-3 rounded-[4px] transition-all duration-300 flex items-center justify-center gap-2 bg-[#1483ca] text-white hover:bg-[#106ba3]"
                             >
                                 <Calendar size={16} />
                                 Book Consultation
@@ -369,14 +369,14 @@ export default function InteriorPainting() {
             </section>
 
             {/* CTA */}
-            <section className="py-16 border-t border-white/5 bg-gradient-to-b from-[#0A0A0A] to-[#050505]">
+            <section className="py-16 border-t border-gray-200 bg-gray-50">
                 <div className="max-w-3xl mx-auto px-6 text-center">
-                    <h2 className="text-2xl font-medium text-white mb-4">Ready to Transform Your Space?</h2>
-                    <p className="text-[#888] mb-8">Schedule a free consultation and let's discuss your project.</p>
+                    <h2 className="text-2xl font-medium text-gray-900 mb-4">Ready to Transform Your Space?</h2>
+                    <p className="text-gray-500 mb-8">Schedule a free consultation and let's discuss your project.</p>
                     <Link
                         to="/"
                         state={{ scrollTo: 'booking' }}
-                        className="inline-flex items-center gap-2 bg-[#C6A87C] text-[#050505] px-8 py-4 rounded-lg hover:bg-[#B59669] transition-all font-medium"
+                        className="inline-flex items-center gap-2 bg-[#1483ca] text-white px-8 py-4 rounded-lg hover:bg-[#106ba3] transition-all font-medium"
                     >
                         <span>Schedule Consultation</span>
                         <ArrowRight size={20} />

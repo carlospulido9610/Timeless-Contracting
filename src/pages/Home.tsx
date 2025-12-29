@@ -1,8 +1,10 @@
-import { ArrowRight, Monitor, Grid, Briefcase, Box, Shirt, Layers, Star, Check, Calendar, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowRight, Monitor, Grid, Briefcase, Box, Shirt, Layers, Star, Check, Calendar, ChevronLeft, ChevronRight, Palette, Hammer, Play, Facebook } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 import visionImg from '../assets/home/vision_brand.png';
+import visionNewImg from '../assets/home/vision_new.jpg';
+import heroBgNew from '../assets/services/media-wall-2.png';
 
 import mediaWall1 from '../assets/services/media-wall-1.png';
 import mediaWall2 from '../assets/services/media-wall-2.png';
@@ -124,7 +126,7 @@ function ServiceCarouselCard({ item, index }: { item: typeof services[0], index:
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: index * 0.1 }}
-            className="group relative bg-[#0A0A0A] overflow-hidden hover:bg-[#0F0F0F] transition-all duration-500 min-h-[500px] border border-white/5 hover:border-[#C6A87C]/30 flex flex-col"
+            className="group relative bg-white overflow-hidden hover:bg-gray-50 transition-all duration-500 min-h-[500px] border border-gray-200 hover:border-[#1483ca]/30 flex flex-col snap-start min-w-[80vw] md:min-w-[400px]"
         >
             <div
                 className="relative flex-1 flex flex-col cursor-grab active:cursor-grabbing"
@@ -137,24 +139,23 @@ function ServiceCarouselCard({ item, index }: { item: typeof services[0], index:
                     <img
                         src={item.images[currentImage]}
                         alt={`${item.title} ${currentImage + 1}`}
-                        className="w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-all duration-1000 group-hover:scale-110"
+                        className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-all duration-1000 group-hover:scale-110"
                     />
-                    {/* Editorial Gradient Overlays */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/40 to-transparent" />
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0A]/80 via-transparent to-transparent opacity-60" />
+                    {/* Editorial Gradient Overlays - Dark for White Text */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-90" />
                 </div>
 
                 {/* Navigation Arrows (Desktop) */}
                 <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex justify-between px-4 z-20 pointer-events-none">
                     <button
                         onClick={prevImage}
-                        className="w-10 h-10 flex items-center justify-center bg-black/40 backdrop-blur-md rounded-full text-white opacity-0 group-hover:opacity-100 transition-all hover:bg-[#C6A87C] hover:text-black pointer-events-auto"
+                        className="w-10 h-10 flex items-center justify-center bg-white/10 backdrop-blur-md rounded-full text-white transition-all hover:bg-white hover:text-black pointer-events-auto border border-white/20"
                     >
                         <ChevronLeft size={20} />
                     </button>
                     <button
                         onClick={nextImage}
-                        className="w-10 h-10 flex items-center justify-center bg-black/40 backdrop-blur-md rounded-full text-white opacity-0 group-hover:opacity-100 transition-all hover:bg-[#C6A87C] hover:text-black pointer-events-auto"
+                        className="w-10 h-10 flex items-center justify-center bg-white/10 backdrop-blur-md rounded-full text-white transition-all hover:bg-white hover:text-black pointer-events-auto border border-white/20"
                     >
                         <ChevronRight size={20} />
                     </button>
@@ -163,29 +164,26 @@ function ServiceCarouselCard({ item, index }: { item: typeof services[0], index:
                 {/* Content Overlay */}
                 <div className="relative z-10 flex-1 flex flex-col justify-end p-6 md:p-8">
                     <div className="transform group-hover:-translate-y-1 transition-transform duration-500">
-                        <div className="flex items-center gap-3 mb-3">
-                            <div className="text-[#C6A87C] bg-[#C6A87C]/10 w-9 h-9 flex items-center justify-center rounded-full border border-[#C6A87C]/20 backdrop-blur-md">
+                        <div className="flex items-center gap-3">
+                            <div className="bg-[#1483ca] text-white w-9 h-9 flex items-center justify-center rounded-full">
                                 <item.icon size={16} strokeWidth={1.5} />
                             </div>
-                            <h3 className="text-2xl font-medium text-white tracking-tight">{item.title}</h3>
+                            <h3 className="text-2xl font-medium !text-white tracking-tight">{item.title}</h3>
                         </div>
-                        <p className="text-[13px] text-[#A1A1AA] leading-relaxed font-light max-w-[260px] opacity-100 translate-y-0 md:opacity-0 md:translate-y-2 md:group-hover:opacity-100 md:group-hover:translate-y-0 transition-all duration-500">
-                            {item.desc}
-                        </p>
                     </div>
 
-                    <div className="flex items-center justify-between pt-5 border-t border-white/5 mt-5">
+                    <div className="flex items-center justify-between pt-5 border-t border-white/20 mt-5">
                         <div className="flex gap-1">
                             {item.images.map((_, i) => (
                                 <div
                                     key={i}
-                                    className={`h-0.5 rounded-full transition-all duration-500 ${i === currentImage ? 'bg-[#C6A87C] w-4' : 'bg-white/10 w-1'}`}
+                                    className={`h-0.5 rounded-full transition-all duration-500 ${i === currentImage ? 'bg-white w-4' : 'bg-white/40 w-1'}`}
                                 />
                             ))}
                         </div>
                         <Link
                             to={item.link}
-                            className="flex items-center gap-2 text-[#C6A87C]/80 text-[10px] font-medium uppercase tracking-[0.2em] hover:text-white transition-colors"
+                            className="flex items-center gap-2 text-white text-[10px] font-medium uppercase tracking-[0.2em] hover:text-white/80 transition-colors"
                         >
                             Explore
                             <ArrowRight size={12} className="transition-transform group-hover:translate-x-1" />
@@ -200,12 +198,34 @@ function ServiceCarouselCard({ item, index }: { item: typeof services[0], index:
 export default function Home() {
     const [bookingStatus, setBookingStatus] = useState<'idle' | 'success'>('idle');
     const [bookingType, setBookingType] = useState<'home' | 'store'>('home');
+    const [bookingStep, setBookingStep] = useState(1);
+    const [formData, setFormData] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        date: '',
+        address: '',
+        notes: ''
+    });
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
 
     const handleBooking = (e: React.FormEvent) => {
         e.preventDefault();
         setBookingStatus('success');
-        setTimeout(() => setBookingStatus('idle'), 3000);
+        setTimeout(() => {
+            setBookingStatus('idle');
+            setBookingStep(1);
+            setFormData({ firstName: '', lastName: '', email: '', phone: '', date: '', address: '', notes: '' });
+        }, 3000);
     };
+
+    const nextStep = () => setBookingStep(2);
+    const prevStep = () => setBookingStep(1);
 
     const location = useLocation();
 
@@ -225,52 +245,316 @@ export default function Home() {
 
     return (
         <>
-            <header className="relative h-screen w-full flex items-center justify-center overflow-hidden border-b border-white/5">
-                <div className="absolute inset-0 z-0">
-                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2000&auto=format&fit=crop" alt="Beautiful Home Interior" className="w-full h-full object-cover opacity-40 grayscale-[20%]" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/50 to-[#050505]/70"></div>
+            <header id="hero" className="relative w-full min-h-screen flex items-center justify-center overflow-hidden py-24 md:py-0">
+                <div className="absolute inset-0 z-0 bg-gray-900">
+                    <img src={heroBgNew} alt="Beautiful Home Interior" className="w-full h-full object-cover object-center opacity-70" />
+                    <div className="absolute inset-0 bg-black/20"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
                 </div>
 
-                <div className="relative z-10 text-center max-w-7xl px-6 mt-16 flex flex-col items-center">
+                <div className="relative z-10 max-w-7xl w-full px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                    {/* Left Column: Text & Value Props */}
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-                        className="flex-1"
+                        className="text-left"
                     >
-                        <h1 className="text-5xl md:text-8xl leading-[1.1] mb-8 tracking-tight font-medium text-white">
-                            Elevated<br />
-                            <span className="text-[#C6A87C]">Craft.</span><br />
-                            Timeless Spaces.
+                        <h1 className="text-5xl md:text-7xl lg:text-8xl leading-[1.1] mb-6 tracking-tight font-medium">
+                            <span className="text-[#1483ca]">Timeless</span><br />
+                            <span className="text-white">Contracting</span><br />
+                            <span className="text-white">& Designs.</span>
                         </h1>
 
-                        <p className="text-lg text-[#A1A1AA] max-w-2xl mx-auto mb-10 leading-relaxed font-light">
+                        <p className="text-lg text-gray-200 max-w-xl mb-8 leading-relaxed font-light">
                             Defining the pinnacle of interior craftsmanship through meticulous carpentry and high-end architectural finishes for San Antonio's most discerning homes.
                         </p>
 
-                        <div className="flex flex-col sm:flex-row gap-4">
-                            <Link to="/" state={{ scrollTo: 'booking' }} className="group bg-[#C6A87C] hover:bg-[#B59669] text-[#050505] transition-all duration-500 font-medium text-[13px] px-10 py-4 rounded-[2px] w-full sm:w-auto flex items-center justify-center gap-2">
-                                Schedule Consultation
-                                <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                            </Link>
-                            <Link to="/catalog" className="bg-transparent hover:bg-white/5 border border-white/20 text-[#EDEDED] transition-all duration-500 font-medium text-[13px] px-10 py-4 rounded-[2px] w-full sm:w-auto text-center flex items-center justify-center">
-                                View Portfolio
-                            </Link>
+                        <div className="space-y-4">
+                            {[
+                                "Transparent Pricing. No Hidden Fees",
+                                "Excellent Track Record",
+                                "Fully licensed, bonded & insured",
+                                "Exceptional Customer Service"
+                            ].map((prop, i) => (
+                                <div key={i} className="flex items-center gap-3">
+                                    <div className="w-5 h-5 rounded-full bg-[#1483ca] flex items-center justify-center">
+                                        <Check size={12} className="text-white" strokeWidth={3} />
+                                    </div>
+                                    <span className="text-sm font-medium text-gray-200">{prop}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </motion.div>
+
+                    {/* Right Column: Multi-step Form */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                        className="w-full max-w-md mx-auto lg:ml-auto"
+                    >
+                        <div className="bg-white/80 backdrop-blur-xl border border-gray-200 rounded-xl p-6 md:p-8 shadow-2xl">
+                            <div className="text-center mb-6">
+                                <h2 className="text-xl font-medium text-gray-900 mb-1">Get Your <span className="text-[#1483ca]">Free</span> Quote Now</h2>
+                                <p className="text-xs text-gray-600">In 2 easy steps</p>
+                            </div>
+
+                            {bookingStatus === 'success' ? (
+                                <div className="py-12 flex flex-col items-center justify-center text-center animate-in fade-in duration-500">
+                                    <div className="w-16 h-16 bg-green-500/10 rounded-full flex items-center justify-center mb-4 text-green-500">
+                                        <Check size={32} />
+                                    </div>
+                                    <h3 className="text-gray-900 text-lg font-medium mb-2">Request Received!</h3>
+                                    <p className="text-gray-500 text-sm">We'll be in touch within 24 hours.</p>
+                                </div>
+                            ) : (
+                                <form onSubmit={handleBooking} className="space-y-6">
+                                    {bookingStep === 1 ? (
+                                        <div className="space-y-4 animate-in slide-in-from-right duration-300">
+                                            <div className="space-y-3">
+                                                <label className="block text-xs font-medium text-gray-500 uppercase tracking-wider">Select Consultation Type</label>
+                                                <button
+                                                    type="button"
+                                                    onClick={() => setBookingType('home')}
+                                                    className={`w-full p-4 rounded-lg border text-left transition-all flex justify-between items-center group ${bookingType === 'home'
+                                                        ? 'border-[#1483ca] bg-[#1483ca]/10'
+                                                        : 'border-gray-200 bg-gray-50 hover:border-gray-300'
+                                                        }`}
+                                                >
+                                                    <div>
+                                                        <span className={`block text-sm font-medium mb-1 ${bookingType === 'home' ? 'text-gray-900' : 'text-gray-400'}`}>At Home Visit</span>
+                                                        <span className="text-[11px] text-gray-500">Precise on-site measurements.</span>
+                                                    </div>
+                                                    <span className="text-[#1483ca] text-xs font-bold bg-[#1483ca]/10 px-2 py-1 rounded">$100</span>
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    onClick={() => setBookingType('store')}
+                                                    className={`w-full p-4 rounded-lg border text-left transition-all flex justify-between items-center group ${bookingType === 'store'
+                                                        ? 'border-[#1483ca] bg-[#1483ca]/10'
+                                                        : 'border-gray-200 bg-gray-50 hover:border-gray-300'
+                                                        }`}
+                                                >
+                                                    <div>
+                                                        <span className={`block text-sm font-medium mb-1 ${bookingType === 'store' ? 'text-gray-900' : 'text-gray-400'}`}>In Store Meeting</span>
+                                                        <span className="text-[11px] text-gray-500">Review samples in design studio.</span>
+                                                    </div>
+                                                    <span className="text-green-500 text-xs font-bold bg-green-500/10 px-2 py-1 rounded">FREE</span>
+                                                </button>
+                                            </div>
+                                            <button
+                                                type="button"
+                                                onClick={nextStep}
+                                                className="w-full bg-[#1483ca] hover:bg-[#106ba3] text-white font-medium text-sm py-4 rounded-lg transition-colors mt-4 flex items-center justify-center gap-2"
+                                            >
+                                                Next Step <ArrowRight size={16} />
+                                            </button>
+                                        </div>
+                                    ) : (
+                                        <div className="space-y-4 animate-in slide-in-from-right duration-300">
+                                            <div className="grid grid-cols-2 gap-3">
+                                                <input
+                                                    name="firstName"
+                                                    value={formData.firstName}
+                                                    onChange={handleInputChange}
+                                                    type="text"
+                                                    required
+                                                    placeholder="First Name"
+                                                    className="w-full bg-white border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-900 focus:border-[#1483ca] focus:ring-0 outline-none transition-colors"
+                                                />
+                                                <input
+                                                    name="lastName"
+                                                    value={formData.lastName}
+                                                    onChange={handleInputChange}
+                                                    type="text"
+                                                    required
+                                                    placeholder="Last Name"
+                                                    className="w-full bg-white border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-900 focus:border-[#1483ca] focus:ring-0 outline-none transition-colors"
+                                                />
+                                            </div>
+                                            <input
+                                                name="email"
+                                                value={formData.email}
+                                                onChange={handleInputChange}
+                                                type="email"
+                                                required
+                                                placeholder="Email Address"
+                                                className="w-full bg-white border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-900 focus:border-[#1483ca] focus:ring-0 outline-none transition-colors"
+                                            />
+                                            <div className="grid grid-cols-2 gap-3">
+                                                <div className="relative">
+                                                    <input
+                                                        name="date"
+                                                        value={formData.date}
+                                                        onChange={handleInputChange}
+                                                        type="date"
+                                                        required
+                                                        className="w-full bg-white border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-900 focus:border-[#1483ca] focus:ring-0 outline-none transition-colors appearance-none"
+                                                    />
+                                                </div>
+                                                <input
+                                                    name="phone"
+                                                    value={formData.phone}
+                                                    onChange={handleInputChange}
+                                                    type="tel"
+                                                    required
+                                                    placeholder="Phone Number"
+                                                    className="w-full bg-white border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-900 focus:border-[#1483ca] focus:ring-0 outline-none transition-colors"
+                                                />
+                                            </div>
+                                            <textarea
+                                                name="notes"
+                                                value={formData.notes}
+                                                onChange={handleInputChange}
+                                                rows={2}
+                                                placeholder="Project details..."
+                                                className="w-full bg-white border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-900 focus:border-[#1483ca] focus:ring-0 outline-none transition-colors resize-none"
+                                            />
+
+                                            <div className="flex gap-3 pt-2">
+                                                <button
+                                                    type="button"
+                                                    onClick={prevStep}
+                                                    className="w-1/3 bg-gray-100 hover:bg-gray-200 text-gray-900 font-medium text-sm py-4 rounded-lg transition-colors border border-gray-200"
+                                                >
+                                                    Back
+                                                </button>
+                                                <button
+                                                    type="submit"
+                                                    className="w-2/3 bg-[#1483ca] hover:bg-[#106ba3] text-white font-medium text-sm py-4 rounded-lg transition-colors flex items-center justify-center gap-2"
+                                                >
+                                                    {bookingType === 'home' ? 'Pay & Book' : 'Confirm'}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    <div className="flex justify-center items-center gap-2 mt-6">
+                                        <div className={`w-2 h-2 rounded-full transition-colors ${bookingStep === 1 ? 'bg-[#1483ca]' : 'bg-gray-200'}`} />
+                                        <div className={`w-2 h-2 rounded-full transition-colors ${bookingStep === 2 ? 'bg-[#1483ca]' : 'bg-gray-200'}`} />
+                                    </div>
+                                </form>
+                            )}
                         </div>
                     </motion.div>
                 </div>
             </header>
 
-            <section id="catalog" className="py-24 bg-[#050505]">
+            <section className="py-6 md:py-12 bg-white">
                 <div className="max-w-7xl mx-auto px-6">
-                    <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6 pb-6 border-b border-white/5">
+                    <div className="text-center mb-12">
+                        <h2 className="text-3xl md:text-4xl tracking-tighter mb-4 font-medium text-[#1483ca]">Read Our <span className="text-gray-900">5-Star</span> Reviews</h2>
+                        <p className="text-sm text-gray-800 font-light max-w-lg mx-auto">
+                            Trusted by homeowners across San Antonio.
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 items-center justify-items-center opacity-80 hover:opacity-100 transition-opacity duration-300">
+                        {/* Google */}
+                        <a href="https://google.com" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-2 group">
+                            <div className="flex items-center gap-2 mb-1">
+                                <svg className="w-6 h-6 text-gray-400 group-hover:text-[#1483ca] transition-colors" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12.545,10.239v3.821h5.445c-0.712,2.315-2.647,3.972-5.445,3.972c-3.332,0-6.033-2.701-6.033-6.032s2.701-6.032,6.033-6.032c1.498,0,2.866,0.549,3.921,1.453l2.814-2.814C17.503,2.988,15.139,2,12.545,2C7.021,2,2.543,6.477,2.543,12s4.478,10,10.002,10c8.396,0,10.249-7.85,9.426-11.761H12.545z" />
+                                </svg>
+                                <span className="text-xl font-medium text-gray-900">Google</span>
+                            </div>
+                            <div className="flex gap-0.5 text-[#1483ca]">
+                                {[...Array(5)].map((_, i) => <Star key={i} size={14} className="fill-current" />)}
+                            </div>
+                            <span className="text-[10px] text-gray-500 uppercase tracking-widest mt-1">5.0 Rating</span>
+                        </a>
+
+                        {/* Facebook */}
+                        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-2 group">
+                            <div className="flex items-center gap-2 mb-1">
+                                <Facebook className="w-6 h-6 text-gray-400 group-hover:text-[#1877F2] transition-colors" />
+                                <span className="text-xl font-medium text-gray-900">Facebook</span>
+                            </div>
+                            <div className="flex gap-0.5 text-[#1483ca]">
+                                {[...Array(5)].map((_, i) => <Star key={i} size={14} className="fill-current" />)}
+                            </div>
+                            <span className="text-[10px] text-gray-500 uppercase tracking-widest mt-1">5.0 Rating</span>
+                        </a>
+
+                        {/* Yelp */}
+                        <a href="https://yelp.com" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-2 group">
+                            <div className="flex items-center gap-2 mb-1">
+                                <svg className="w-6 h-6 text-gray-400 group-hover:text-[#FF1A1A] transition-colors" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M20.1 11.8c-.8.2-3.4.6-4.5.8.5 1 .9 2.5 1 3.2.2 1.3 1.5 2.2 1.2 3.5-.2 1.1-1.3 1.5-2 1.4-.7 0-1.1-.5-1.4-1-.5-.8-1-2.6-1.1-3.6-1 .2-1.9.5-2.9.5.4 1 1 2.8 1.4 3.7.3.7.8 1.4.2 2-.5.5-1.6.4-2.5-.1-.8-.4-1.2-1.5-.9-2.2.3-.9 1.5-2.2 2.1-3.1-.9-.1-2.9-.1-4-.1-1.3-.1-1.8.8-2.7.5-.7-.2-1.2-.9-1.1-1.8 0-.7.6-1.1 1.2-1.2 1-.3 2.8-.2 3.9-.1-1-.5-2.2-1.3-3-2-.7-.6-.8-1.5-.3-2.2.4-.6 1.4-.8 2.2-.6.9.3 1.7 1.4 2.3 2.1.2-1 .3-2.9.1-3.9-.1-1.3.8-1.8 1.6-1.9.8-.1 1.4.4 1.7 1.1.4.9.4 2.8.2 3.8.8-.4 2.1-1.4 2.8-2 .6-.6 1.5-.8 2.2-.2.6.5.6 1.7.2 2.5-.4.6-1.8 1.4-3 1.9 1 0 2.2 0 3.3.1 1.3.2 1.7-.8 2.5-.5.7.3 1.1 1 1 1.8-.1.7-.6 1.1-1.3 1.1z" />
+                                </svg>
+                                <span className="text-xl font-medium text-gray-900">Yelp</span>
+                            </div>
+                            <div className="flex gap-0.5 text-[#1483ca]">
+                                {[...Array(5)].map((_, i) => <Star key={i} size={14} className="fill-current" />)}
+                            </div>
+                            <span className="text-[10px] text-gray-500 uppercase tracking-widest mt-1">5.0 Rating</span>
+                        </a>
+
+                        {/* Houzz */}
+                        <a href="https://houzz.com" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-2 group">
+                            <div className="flex items-center gap-2 mb-1">
+                                <svg className="w-6 h-6 text-gray-400 group-hover:text-[#4DBC15] transition-colors" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M21.5 0H2.5C1.1 0 0 1.1 0 2.5v19C0 22.9 1.1 24 2.5 24h19c1.4 0 2.5-1.1 2.5-2.5v-19C24 1.1 22.9 0 21.5 0zM17 18h-4v-6h4v6zm-6 0H7v-6h4v6zm4-8h-4V4h4v6z" />
+                                </svg>
+                                <span className="text-xl font-medium text-gray-900">Houzz</span>
+                            </div>
+                            <div className="flex gap-0.5 text-[#1483ca]">
+                                {[...Array(5)].map((_, i) => <Star key={i} size={14} className="fill-current" />)}
+                            </div>
+                            <span className="text-[10px] text-gray-500 uppercase tracking-widest mt-1">5.0 Rating</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <section className="py-6 md:py-12 bg-white">
+                <div className="max-w-7xl mx-auto px-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-16 items-center">
+                        <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
+                            <img
+                                src={visionImg}
+                                alt="Timeless Contracting Vision"
+                                className="w-full h-full object-cover hover:grayscale-0 transition-all duration-700"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                        </div>
+
+                        <div className="text-left">
+                            <h2 className="text-3xl md:text-5xl tracking-tighter mb-8 font-medium text-[#1483ca]">
+                                Your <span className="text-gray-900">Vision</span>,<br />
+                                Our Craft.
+                            </h2>
+                            <div className="space-y-6 text-gray-800 font-light leading-relaxed">
+                                <p>
+                                    At Timeless Contracting, we transform spaces into beautifully functional environments. With a foundation built on craftsmanship and creativity, we are your trusted partner for premium home renovations.
+                                </p>
+                                <p>
+                                    Our mission is to bring your vision to life. Whether creating a productive workspace or rejuvenating your home’s interior, we craft spaces that reflect who you are.
+                                </p>
+                            </div>
+                            <Link
+                                to="/about"
+                                className="inline-flex items-center gap-2 mt-8 bg-[#1483ca] text-white px-8 py-3 rounded-[2px] font-medium text-sm hover:bg-[#106ba3] transition-colors"
+                            >
+                                Read more about us
+                                <ArrowRight size={16} />
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="catalog" className="py-6 md:py-12 bg-white">
+                <div className="max-w-7xl mx-auto px-6">
+                    <div className="flex flex-col md:flex-row justify-between items-end mb-8 gap-4">
                         <div>
-                            <h2 className="text-3xl tracking-tight mb-2 font-medium text-white">What We Do</h2>
-                            <p className="text-sm text-[#666] max-w-sm">Custom carpentry and professional painting services tailored to your home.</p>
+                            <h2 className="text-3xl tracking-tight mb-2 font-medium text-[#1483ca]">What We Do</h2>
+                            <p className="text-sm text-gray-800 max-w-sm">Custom carpentry and professional painting services tailored to your home.</p>
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div className="flex gap-4 md:gap-6 overflow-x-auto pb-6 snap-x snap-mandatory scrollbar-hide scroll-px-6 -mx-6 px-6">
                         {services.map((item, i) => (
                             <ServiceCarouselCard key={item.title} item={item} index={i} />
                         ))}
@@ -278,220 +562,103 @@ export default function Home() {
                 </div>
             </section>
 
-            <section id="about" className="py-24 bg-[#080808] border-t border-white/5">
+            <section id="how-it-works" className="py-6 md:py-12 bg-white">
                 <div className="max-w-7xl mx-auto px-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-                        <div>
-                            <h2 className="text-3xl md:text-4xl tracking-tighter mb-8 font-medium text-white">
-                                Your vision,<br />our craft.
-                            </h2>
-                            <div className="space-y-6 text-sm text-[#A1A1AA] font-light leading-relaxed max-w-md">
-                                <p>
-                                    At <span className="text-white font-normal">Timeless Contracting</span>, we are dedicated to transforming spaces into beautifully functional environments. Based in San Antonio, we've built our reputation on craftsmanship, creativity, and commitment to quality.
-                                </p>
-                                <p>
-                                    Whether you need a stunning media wall, custom closet system, cabinet refresh, or complete interior painting, we bring your vision to life with attention to every detail.
-                                </p>
-                            </div>
-
-                            <div className="grid grid-cols-2 gap-8 mt-12 pt-8 border-t border-white/5">
-                                <div>
-                                    <span className="block text-3xl text-white font-medium tracking-tighter mb-1">100%</span>
-                                    <span className="text-[11px] text-[#666]">Quality Guarantee</span>
-                                </div>
-                                <div>
-                                    <span className="block text-3xl text-white font-medium tracking-tighter mb-1">12+</span>
-                                    <span className="text-[11px] text-[#666]">Years in Trade</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="relative aspect-video lg:aspect-[16/10] rounded-lg overflow-hidden border border-white/5 shadow-2xl transition-all duration-700">
-                            <img src={visionImg} alt="Carpenter working" className="w-full h-full object-cover" />
-                        </div>
+                    <div className="text-center mb-8">
+                        <h2 className="text-3xl md:text-4xl tracking-tighter mb-4 font-medium text-[#1483ca]">How it works</h2>
+                        <p className="text-sm text-gray-800 font-light max-w-lg mx-auto">
+                            Transforming your space in three simple steps.
+                        </p>
                     </div>
-                </div>
-            </section>
 
-            <section id="process" className="py-24 bg-[#050505] border-t border-white/5">
-                <div className="max-w-7xl mx-auto px-6">
-                    <h2 className="text-2xl text-left mb-16 tracking-tight font-medium text-white">How We Work</h2>
+                    <div className="grid grid-cols-3 gap-4 md:gap-8 max-w-4xl mx-auto relative">
+                        {/* Connecting Line (Desktop) */}
+                        <div className="hidden md:block absolute top-[28px] left-[16%] right-[16%] h-[1px] bg-gradient-to-r from-transparent via-gray-200 to-transparent z-0"></div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {[
-                            { num: '01', title: 'Consultation', desc: 'We meet with you to understand your vision, measure your space, and provide a detailed quote with no surprises.' },
-                            { num: '02', title: 'Preparation', desc: 'We handle all prep work - repairs, priming, protection of your floors and furniture - so the final result is flawless.' },
-                            { num: '03', title: 'Execution', desc: 'Our skilled team completes the work efficiently and professionally, leaving your home clean and transformed.' }
+                            {
+                                icon: Calendar,
+                                title: 'Schedule Visit',
+                                desc: 'Book your professional in-home measurement.'
+                            },
+                            {
+                                icon: Palette,
+                                title: 'Design',
+                                desc: 'Select materials and customize your design online.'
+                            },
+                            {
+                                icon: Hammer,
+                                title: 'Enjoy',
+                                desc: 'We fabricate and install in record time.'
+                            }
                         ].map((step, i) => (
-                            <div key={i} className="group border-l border-white/10 pl-6 hover:border-[#C6A87C] transition-colors duration-500">
-                                <span className="text-xs font-mono text-[#444] block mb-4 group-hover:text-[#C6A87C]">{step.num}</span>
-                                <h3 className="text-lg font-medium mb-3 text-white">{step.title}</h3>
-                                <p className="text-sm text-[#666] leading-relaxed font-light">{step.desc}</p>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            <section className="py-24 bg-[#080808] border-y border-white/5">
-                <div className="max-w-7xl mx-auto px-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {[
-                            { name: 'Jennifer M.', loc: 'San Antonio, TX', text: '"The fit and finish of the mudroom cabinetry is exceptional. The team was professional, clean, and completed the work exactly on schedule."' },
-                            { name: 'David R.', loc: 'Alamo Heights', text: '"We hired Timeless for a complex media wall. The attention to detail on the grain matching was impressive. Highly recommended."' }
-                        ].map((review, i) => (
-                            <div key={i} className="p-8 bg-[#050505] rounded-md border border-white/5 hover:border-white/10 transition-colors">
-                                <div className="flex gap-1 text-[#C6A87C] mb-4 opacity-80">
-                                    {[...Array(5)].map((_, j) => <Star key={j} size={14} className="fill-current" />)}
+                            <div key={i} className="relative z-10 flex flex-col items-center text-center group">
+                                <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-white border border-gray-200 flex items-center justify-center mb-4 group-hover:border-[#1483ca]/30 group-hover:bg-[#1483ca]/5 transition-all duration-500 shadow-xl">
+                                    <step.icon size={24} className="text-gray-400 group-hover:text-[#1483ca] transition-colors duration-500" strokeWidth={1.5} />
                                 </div>
-                                <p className="text-sm text-[#A1A1AA] mb-6 leading-relaxed font-light">{review.text}</p>
-                                <div className="flex items-center gap-3">
-                                    <div className="w-8 h-8 rounded-full bg-[#111] flex items-center justify-center text-xs text-white font-medium">{review.name.substring(0, 2).toUpperCase()}</div>
-                                    <div>
-                                        <span className="text-xs text-white font-medium block">{review.name}</span>
-                                        <span className="text-[10px] text-[#555]">{review.loc}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            <section id="booking" className="py-16 md:py-24 bg-[#050505]">
-                <div className="max-w-4xl mx-auto px-6">
-                    <div className="text-center mb-10">
-                        <h2 className="text-2xl tracking-tight mb-2 font-medium text-white">Book Your Visit</h2>
-                        <p className="text-sm text-[#666]">Professional consultation for your custom project.</p>
-                    </div>
-
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                        {/* Main Form Column */}
-                        <div className="lg:col-span-2 space-y-4 md:space-y-6">
-
-                            {/* Visit Selection (Moved to Main) */}
-                            <div className="bg-[#0A0A0A] border border-white/5 rounded-lg p-4 md:p-6">
-                                <h2 className="text-sm font-medium text-white mb-3 md:mb-4 flex items-center gap-2">
-                                    <span className="text-[#C6A87C]">01.</span>
-                                    Choose Consultation Type
-                                </h2>
-                                <div className="grid grid-cols-2 gap-3 md:gap-4">
-                                    <button
-                                        type="button"
-                                        onClick={() => setBookingType('home')}
-                                        className={`p-3 md:p-4 rounded-md border text-left transition-all ${bookingType === 'home'
-                                            ? 'border-[#C6A87C] bg-[#C6A87C]/5'
-                                            : 'border-white/10 bg-[#050505] hover:border-white/20'
-                                            }`}
-                                    >
-                                        <span className={`block text-sm font-medium mb-1 ${bookingType === 'home' ? 'text-white' : 'text-[#888]'}`}>At Home Visit</span>
-                                        <span className="text-[10px] md:text-[11px] text-[#666] leading-tight block">We provide precise on-site measurements.</span>
-                                        <span className="block mt-2 text-[#C6A87C] text-[10px] font-bold">$100.00</span>
-                                    </button>
-                                    <button
-                                        type="button"
-                                        onClick={() => setBookingType('store')}
-                                        className={`p-3 md:p-4 rounded-md border text-left transition-all ${bookingType === 'store'
-                                            ? 'border-[#C6A87C] bg-[#C6A87C]/5'
-                                            : 'border-white/10 bg-[#050505] hover:border-white/20'
-                                            }`}
-                                    >
-                                        <span className={`block text-sm font-medium mb-1 ${bookingType === 'store' ? 'text-white' : 'text-[#888]'}`}>In Store Meeting</span>
-                                        <span className="text-[10px] md:text-[11px] text-[#666] leading-tight block">Review samples in our design studio.</span>
-                                        <span className="block mt-2 text-green-500 text-[10px] font-bold">FREE</span>
-                                    </button>
-                                </div>
-                            </div>
-
-                            {/* Contact Form */}
-                            <div className="bg-[#0A0A0A] border border-white/5 rounded-lg p-4 md:p-6">
-                                <h2 className="text-sm font-medium text-white mb-4 md:mb-6 flex items-center gap-2">
-                                    <span className="text-[#C6A87C]">02.</span>
-                                    Contact Information
-                                </h2>
-                                <form id="booking-form" className="space-y-3 md:space-y-4" onSubmit={handleBooking}>
-                                    <div className="grid grid-cols-2 gap-3 md:gap-4">
-                                        <div>
-                                            <label className="block text-[10px] md:text-[11px] font-medium text-[#666] mb-1.5 md:mb-2 uppercase tracking-wider">First Name</label>
-                                            <input type="text" required className="w-full bg-[#050505] border border-white/10 rounded-[4px] px-3 py-2.5 text-sm md:text-sm text-[#EDEDED] focus:border-[#C6A87C] focus:ring-0 outline-none transition-colors" />
-                                        </div>
-                                        <div>
-                                            <label className="block text-[10px] md:text-[11px] font-medium text-[#666] mb-1.5 md:mb-2 uppercase tracking-wider">Last Name</label>
-                                            <input type="text" required className="w-full bg-[#050505] border border-white/10 rounded-[4px] px-3 py-2.5 text-sm md:text-sm text-[#EDEDED] focus:border-[#C6A87C] focus:ring-0 outline-none transition-colors" />
-                                        </div>
-                                    </div>
-
-                                    <div className="grid grid-cols-2 gap-3 md:gap-4">
-                                        <div className="col-span-2 sm:col-span-1">
-                                            <label className="block text-[10px] md:text-[11px] font-medium text-[#666] mb-1.5 md:mb-2 uppercase tracking-wider">Email Address</label>
-                                            <input type="email" required className="w-full bg-[#050505] border border-white/10 rounded-[4px] px-3 py-2.5 text-sm md:text-sm text-[#EDEDED] focus:border-[#C6A87C] focus:ring-0 outline-none transition-colors" />
-                                        </div>
-                                        <div className="col-span-2 sm:col-span-1">
-                                            <label className="block text-[10px] md:text-[11px] font-medium text-[#666] mb-1.5 md:mb-2 uppercase tracking-wider">Phone Number</label>
-                                            <input type="tel" required className="w-full bg-[#050505] border border-white/10 rounded-[4px] px-3 py-2.5 text-sm md:text-sm text-[#EDEDED] focus:border-[#C6A87C] focus:ring-0 outline-none transition-colors" />
-                                        </div>
-                                    </div>
-
-                                    {bookingType === 'home' && (
-                                        <div>
-                                            <label className="block text-[10px] md:text-[11px] font-medium text-[#666] mb-1.5 md:mb-2 uppercase tracking-wider">Service Address</label>
-                                            <input type="text" required className="w-full bg-[#050505] border border-white/10 rounded-[4px] px-3 py-2.5 text-sm md:text-sm text-[#EDEDED] focus:border-[#C6A87C] focus:ring-0 outline-none transition-colors" placeholder="123 Luxury Lane" />
-                                        </div>
-                                    )}
-
-                                    <div>
-                                        <label className="block text-[10px] md:text-[11px] font-medium text-[#666] mb-1.5 md:mb-2 uppercase tracking-wider">Project Notes (Optional)</label>
-                                        <textarea rows={3} className="w-full bg-[#050505] border border-white/10 rounded-[4px] px-3 py-2.5 text-sm md:text-sm text-[#EDEDED] focus:border-[#C6A87C] focus:ring-0 outline-none transition-colors resize-none" placeholder="Tell us a bit about your vision..." />
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-
-                        {/* Summary Sidebar */}
-                        <div className="lg:col-span-1">
-                            <div className="bg-[#0A0A0A] border border-white/5 rounded-lg p-6 sticky top-24">
-                                <h3 className="text-sm font-medium text-white mb-4">Summary</h3>
-                                <div className="space-y-4 mb-6 pb-6 border-b border-white/5">
-                                    <div className="flex justify-between items-start font-medium">
-                                        <div className="flex-1">
-                                            <span className="text-sm text-white block">
-                                                {bookingType === 'home' ? 'Technical Visit' : 'In-Store Consult'}
-                                            </span>
-                                            <span className="text-[11px] text-[#666] block mt-1">
-                                                {bookingType === 'home' ? 'Professional assessment & measurement' : 'Review samples in our design studio'}
-                                            </span>
-                                        </div>
-                                        <span className="text-sm text-[#C6A87C]">
-                                            {bookingType === 'home' ? '$100.00' : 'FREE'}
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div className="flex justify-between items-center mb-6">
-                                    <span className="text-sm font-medium text-white">Total Due</span>
-                                    <span className="text-xl text-[#C6A87C] font-medium tracking-tight">
-                                        {bookingType === 'home' ? '$100.00' : 'FREE'}
-                                    </span>
-                                </div>
-
-                                <button
-                                    type="submit"
-                                    form="booking-form"
-                                    className={`w-full font-medium text-[13px] py-3 rounded-[4px] transition-colors flex justify-center items-center gap-2 ${bookingStatus === 'success' ? 'bg-green-600 hover:bg-green-700 text-white' : 'bg-[#C6A87C] hover:bg-[#B59669] text-black'}`}
-                                >
-                                    {bookingStatus === 'success' ? <Check size={12} /> : <Calendar size={12} />}
-                                    {bookingStatus === 'success' ? 'Appointment Requested' : (bookingType === 'home' ? 'Pay & Book Now' : 'Request Free Appointment')}
-                                </button>
-
-                                <p className="text-[10px] text-[#444] text-center mt-4 leading-relaxed">
-                                    {bookingType === 'home'
-                                        ? "By clicking you agree to our booking terms and $100 service fee."
-                                        : "Professional consultation at our studio. No fee required."}
+                                <h3 className="text-sm md:text-lg font-medium text-gray-900 mb-2">{step.title}</h3>
+                                <p className="text-[10px] md:text-sm text-gray-800 leading-relaxed font-light max-w-[150px] mx-auto">
+                                    {step.desc}
                                 </p>
                             </div>
-                        </div>
+                        ))}
                     </div>
                 </div>
             </section>
+
+
+
+            <section className="py-6 md:py-12 bg-white">
+                <div className="max-w-7xl mx-auto px-6">
+                    <div className="text-center mb-6">
+                        <h2 className="text-3xl md:text-4xl tracking-tighter mb-4 font-medium text-[#1483ca]">Watch Our Customers Rave About Us</h2>
+                        <p className="text-sm text-gray-800 font-light max-w-lg mx-auto">
+                            See what our clients say about their new spaces.
+                        </p>
+                    </div>
+
+                    <div className="flex gap-4 md:gap-8 overflow-x-auto pb-4 md:pb-12 snap-x snap-mandatory scrollbar-hide scroll-px-6 -mx-6 px-6">
+                        {[
+                            {
+                                img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop',
+                                name: 'Michael & Sarah'
+                            },
+                            {
+                                img: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop',
+                                name: 'James Peterson'
+                            },
+                            {
+                                img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800&auto=format&fit=crop',
+                                name: 'Elena Rodriguez'
+                            }
+                        ].map((video, i) => (
+                            <div key={i} className="group cursor-pointer min-w-[300px] md:min-w-[400px] snap-center">
+                                <div className="relative aspect-[3/4] md:aspect-video rounded-lg overflow-hidden mb-4 bg-gray-100">
+                                    <img
+                                        src={video.img}
+                                        alt={video.name}
+                                        className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 opacity-90"
+                                    />
+                                    <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors duration-500" />
+
+                                    <div className="absolute inset-0 flex items-center justify-center">
+                                        <div className="w-16 h-16 rounded-full bg-white/30 backdrop-blur-md border border-white/40 flex items-center justify-center group-hover:scale-110 group-hover:bg-[#1483ca] group-hover:border-[#1483ca] transition-all duration-300">
+                                            <Play size={24} className="fill-white text-white ml-1 group-hover:fill-white group-hover:text-white transition-colors" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="text-left px-2">
+                                    <p className="text-sm text-gray-900 mt-1 font-medium">{video.name}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+
+
+
         </>
     );
 }

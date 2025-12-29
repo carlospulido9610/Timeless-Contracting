@@ -94,10 +94,10 @@ export default function Carpentry() {
     };
 
     return (
-        <div className="min-h-screen bg-[#050505] pt-20">
+        <div className="min-h-screen bg-gray-50 pt-20">
             {/* Hero */}
-            <section className="relative py-16 overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-b from-[#C6A87C]/5 to-transparent" />
+            <section className="relative py-6 md:py-12 overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-b from-[#1483ca]/5 to-transparent" />
                 <div className="max-w-6xl mx-auto px-6 relative">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
@@ -106,19 +106,19 @@ export default function Carpentry() {
                     >
                         <Link
                             to="/services"
-                            className="inline-flex items-center gap-2 text-[#888] hover:text-[#C6A87C] text-sm mb-6 transition-colors"
+                            className="inline-flex items-center gap-2 text-gray-500 hover:text-[#1483ca] text-sm mb-6 transition-colors"
                         >
                             ← Back to Services
                         </Link>
                         <div className="flex items-center gap-4 mb-6">
-                            <div className="w-14 h-14 bg-[#C6A87C]/10 rounded-xl flex items-center justify-center">
-                                <Hammer size={28} className="text-[#C6A87C]" />
+                            <div className="w-14 h-14 bg-[#1483ca]/10 rounded-xl flex items-center justify-center">
+                                <Hammer size={28} className="text-[#1483ca]" />
                             </div>
                             <div>
-                                <h1 className="text-4xl md:text-5xl font-medium text-white tracking-tight">
+                                <h1 className="text-4xl md:text-5xl font-medium text-gray-900 tracking-tight">
                                     Expert Carpentry
                                 </h1>
-                                <p className="text-[#888] mt-1">Custom woodwork and built-in solutions</p>
+                                <p className="text-gray-500 mt-1">Custom woodwork and built-in solutions</p>
                             </div>
                         </div>
                     </motion.div>
@@ -126,24 +126,24 @@ export default function Carpentry() {
             </section>
 
             {/* Main Content */}
-            <section className="border-t border-white/5">
+            <section>
                 <div className="flex flex-col lg:flex-row min-h-[80vh]">
                     {/* Left: Information */}
-                    <div className="w-full lg:w-1/2 p-8 lg:p-12 border-r border-white/5">
+                    <div className="w-full lg:w-1/2 p-8 lg:p-12 border-r border-gray-200">
                         <motion.div
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: 0.2 }}
                         >
                             {/* Description */}
-                            <p className="text-[#A1A1AA] leading-relaxed mb-8 text-lg">
+                            <p className="text-gray-500 leading-relaxed mb-8 text-lg">
                                 From media walls to custom closets, our skilled carpenters create bespoke
                                 solutions that enhance both beauty and functionality. Every piece is
                                 crafted with precision and attention to detail.
                             </p>
 
                             {/* Services Grid */}
-                            <h3 className="text-sm font-medium text-[#666] uppercase tracking-wider mb-6">What We Build</h3>
+                            <h3 className="text-sm font-medium text-gray-900 uppercase tracking-wider mb-6">What We Build</h3>
                             <div className="grid sm:grid-cols-2 gap-4 mb-10">
                                 {carpentryServices.map((service, i) => (
                                     <motion.div
@@ -152,24 +152,24 @@ export default function Carpentry() {
                                         whileInView={{ opacity: 1, y: 0 }}
                                         viewport={{ once: true }}
                                         transition={{ delay: i * 0.05 }}
-                                        className="group relative bg-[#0A0A0A] border border-white/5 rounded-xl overflow-hidden hover:border-[#C6A87C]/30 transition-all"
+                                        className="group relative bg-gray-50 border border-gray-200 rounded-xl overflow-hidden hover:border-[#1483ca]/30 transition-all shadow-sm"
                                     >
                                         <div className="aspect-[16/10] overflow-hidden">
                                             <img
                                                 src={service.image}
                                                 alt={service.title}
-                                                className="w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-105 transition-all duration-500"
+                                                className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
                                             />
                                         </div>
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-gray-900/70 via-gray-900/20 to-transparent" />
                                         <div className="absolute bottom-0 left-0 right-0 p-4">
                                             <div className="flex items-center gap-2 mb-1">
-                                                <div className="w-6 h-6 bg-[#C6A87C]/20 backdrop-blur-sm rounded flex items-center justify-center">
-                                                    <service.icon size={12} className="text-[#C6A87C]" />
+                                                <div className="w-6 h-6 bg-[#1483ca] rounded flex items-center justify-center">
+                                                    <service.icon size={12} className="text-white" />
                                                 </div>
-                                                <h4 className="text-white font-medium text-sm">{service.title}</h4>
+                                                <h4 className="!text-white font-medium text-sm">{service.title}</h4>
                                             </div>
-                                            <p className="text-[#888] text-xs">{service.desc}</p>
+                                            <p className="!text-gray-300 text-xs">{service.desc}</p>
                                         </div>
                                     </motion.div>
                                 ))}
@@ -182,11 +182,11 @@ export default function Carpentry() {
                                     { title: 'Quality Materials', desc: 'Premium hardwoods and finishes' },
                                     { title: 'Expert Installation', desc: 'Precise craftsmanship' },
                                 ].map((feature) => (
-                                    <div key={feature.title} className="flex items-start gap-3 p-4 bg-[#0A0A0A] border border-white/5 rounded-xl">
-                                        <Check size={16} className="text-[#C6A87C] flex-shrink-0 mt-0.5" />
+                                    <div key={feature.title} className="flex items-start gap-3 p-4 bg-gray-50 border border-gray-200 rounded-xl shadow-sm">
+                                        <Check size={16} className="text-[#1483ca] flex-shrink-0 mt-0.5" />
                                         <div>
-                                            <h4 className="text-white font-medium text-sm mb-1">{feature.title}</h4>
-                                            <p className="text-[#666] text-xs">{feature.desc}</p>
+                                            <h4 className="text-gray-900 font-medium text-sm mb-1">{feature.title}</h4>
+                                            <p className="text-gray-500 text-xs">{feature.desc}</p>
                                         </div>
                                     </div>
                                 ))}
@@ -195,26 +195,26 @@ export default function Carpentry() {
                     </div>
 
                     {/* Right: Configurator */}
-                    <div className="w-full lg:w-1/2 bg-[#080808] flex flex-col">
+                    <div className="w-full lg:w-1/2 bg-white flex flex-col">
                         {/* Header */}
-                        <div className="p-8 border-b border-white/5">
+                        <div className="p-8 border-b border-gray-200">
                             <div className="flex items-center gap-2 mb-4">
                                 <span className="w-2 h-2 rounded-full bg-green-500"></span>
-                                <span className="text-[11px] font-medium text-[#888]">CONFIGURATOR</span>
+                                <span className="text-[11px] font-medium text-gray-500">CONFIGURATOR</span>
                             </div>
-                            <h2 className="text-xl text-white font-medium">Design Your Project</h2>
+                            <h2 className="text-xl text-gray-900 font-medium">Design Your Project</h2>
                         </div>
 
                         {/* Tabs */}
                         <div className="px-8 pt-6">
-                            <div className="flex bg-[#121212] p-1 rounded-md w-full border border-white/5">
+                            <div className="flex bg-gray-100 p-1 rounded-md w-full border border-gray-200">
                                 {(['project', 'wood', 'extras'] as Tab[]).map((tab) => (
                                     <button
                                         key={tab}
                                         onClick={() => setActiveTab(tab)}
                                         className={`w-1/3 py-2 px-3 rounded-[4px] text-[12px] font-medium transition-all border border-transparent capitalize ${activeTab === tab
-                                            ? 'bg-[#EDEDED] text-[#000000] border-[#EDEDED]'
-                                            : 'text-[#666] hover:text-[#EDEDED]'
+                                            ? 'bg-white text-[#1483ca] border-gray-200 shadow-sm'
+                                            : 'text-gray-500 hover:text-gray-900'
                                             }`}
                                     >
                                         {tab}
@@ -233,7 +233,7 @@ export default function Carpentry() {
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, y: -10 }}
                                     >
-                                        <span className="text-[11px] font-medium text-[#555] block mb-4 uppercase tracking-wider">
+                                        <span className="text-[11px] font-medium text-gray-500 block mb-4 uppercase tracking-wider">
                                             Project Type
                                         </span>
                                         <div className="grid grid-cols-2 gap-3">
@@ -243,18 +243,18 @@ export default function Carpentry() {
                                                     whileHover={{ scale: 1.02 }}
                                                     whileTap={{ scale: 0.98 }}
                                                     onClick={() => setSelectedProject(opt.id)}
-                                                    className={`cursor-pointer border bg-[#0A0A0A] rounded-md p-4 transition-all relative ${selectedProject === opt.id
-                                                        ? 'border-[#C6A87C] bg-[#121212]'
-                                                        : 'border-white/5 hover:border-white/20'
+                                                    className={`cursor-pointer border bg-white rounded-md p-4 transition-all relative shadow-sm ${selectedProject === opt.id
+                                                        ? 'border-[#1483ca] bg-blue-50/10'
+                                                        : 'border-gray-200 hover:border-[#1483ca]/30'
                                                         }`}
                                                 >
-                                                    <div className="w-10 h-10 bg-[#C6A87C]/10 rounded-lg flex items-center justify-center mb-3">
-                                                        <opt.icon size={20} className="text-[#C6A87C]" />
+                                                    <div className="w-10 h-10 bg-[#1483ca]/10 rounded-lg flex items-center justify-center mb-3">
+                                                        <opt.icon size={20} className="text-[#1483ca]" />
                                                     </div>
-                                                    <span className="block text-sm text-white font-medium">{opt.name}</span>
-                                                    <span className="text-[11px] text-[#555]">{opt.desc}</span>
+                                                    <span className="block text-sm text-gray-900 font-medium">{opt.name}</span>
+                                                    <span className="text-[11px] text-gray-500">{opt.desc}</span>
                                                     {selectedProject === opt.id && (
-                                                        <div className="absolute top-2 right-2 text-[#C6A87C]">
+                                                        <div className="absolute top-2 right-2 text-[#1483ca]">
                                                             <Check size={12} />
                                                         </div>
                                                     )}
@@ -271,7 +271,7 @@ export default function Carpentry() {
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, y: -10 }}
                                     >
-                                        <span className="text-[11px] font-medium text-[#555] block mb-4 uppercase tracking-wider">
+                                        <span className="text-[11px] font-medium text-gray-500 block mb-4 uppercase tracking-wider">
                                             Wood Selection
                                         </span>
                                         <div className="space-y-3">
@@ -281,22 +281,22 @@ export default function Carpentry() {
                                                     whileHover={{ scale: 1.01 }}
                                                     whileTap={{ scale: 0.99 }}
                                                     onClick={() => setSelectedWood(opt.id)}
-                                                    className={`cursor-pointer border bg-[#0A0A0A] rounded-md p-3 flex items-center justify-between transition-all ${selectedWood === opt.id
-                                                        ? 'border-[#C6A87C] bg-[#121212]'
-                                                        : 'border-white/5 hover:border-white/20'
+                                                    className={`cursor-pointer border bg-white rounded-md p-3 flex items-center justify-between transition-all shadow-sm ${selectedWood === opt.id
+                                                        ? 'border-[#1483ca] bg-blue-50/10'
+                                                        : 'border-gray-200 hover:border-[#1483ca]/30'
                                                         }`}
                                                 >
                                                     <div className="flex items-center gap-4">
                                                         <div
-                                                            className="w-10 h-10 rounded ring-1 ring-white/10"
+                                                            className="w-10 h-10 rounded ring-1 ring-gray-200"
                                                             style={{ backgroundColor: opt.color }}
                                                         />
                                                         <div>
-                                                            <span className="block text-sm text-white font-medium">{opt.name}</span>
-                                                            <span className="text-[11px] text-[#555]">{opt.desc}</span>
+                                                            <span className="block text-sm text-gray-900 font-medium">{opt.name}</span>
+                                                            <span className="text-[11px] text-gray-500">{opt.desc}</span>
                                                         </div>
                                                     </div>
-                                                    {selectedWood === opt.id && <Check size={14} className="text-[#C6A87C]" />}
+                                                    {selectedWood === opt.id && <Check size={14} className="text-[#1483ca]" />}
                                                 </motion.div>
                                             ))}
                                         </div>
@@ -310,7 +310,7 @@ export default function Carpentry() {
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, y: -10 }}
                                     >
-                                        <span className="text-[11px] font-medium text-[#555] block mb-4 uppercase tracking-wider">
+                                        <span className="text-[11px] font-medium text-gray-500 block mb-4 uppercase tracking-wider">
                                             Enhancements
                                         </span>
                                         <div className="space-y-3">
@@ -320,21 +320,21 @@ export default function Carpentry() {
                                                     whileHover={{ scale: 1.01 }}
                                                     whileTap={{ scale: 0.99 }}
                                                     onClick={() => toggleExtra(opt.id)}
-                                                    className={`cursor-pointer border bg-[#0A0A0A] rounded-md p-3 flex items-center justify-between transition-all ${selectedExtras.includes(opt.id)
-                                                        ? 'border-[#C6A87C] bg-[#121212]'
-                                                        : 'border-white/5 hover:border-white/20'
+                                                    className={`cursor-pointer border bg-white rounded-md p-3 flex items-center justify-between transition-all shadow-sm ${selectedExtras.includes(opt.id)
+                                                        ? 'border-[#1483ca] bg-blue-50/10'
+                                                        : 'border-gray-200 hover:border-[#1483ca]/30'
                                                         }`}
                                                 >
                                                     <div className="flex items-center gap-4">
-                                                        <div className="w-8 h-8 rounded-full bg-[#C6A87C]/20 text-[#C6A87C] flex items-center justify-center ring-1 ring-white/10">
+                                                        <div className="w-8 h-8 rounded-full bg-[#1483ca]/20 text-[#1483ca] flex items-center justify-center ring-1 ring-gray-200">
                                                             <opt.icon size={16} />
                                                         </div>
                                                         <div>
-                                                            <span className="block text-sm text-white font-medium">{opt.name}</span>
-                                                            <span className="text-[11px] text-[#555]">{opt.desc}</span>
+                                                            <span className="block text-sm text-gray-900 font-medium">{opt.name}</span>
+                                                            <span className="text-[11px] text-gray-500">{opt.desc}</span>
                                                         </div>
                                                     </div>
-                                                    {selectedExtras.includes(opt.id) && <Check size={14} className="text-[#C6A87C]" />}
+                                                    {selectedExtras.includes(opt.id) && <Check size={14} className="text-[#1483ca]" />}
                                                 </motion.div>
                                             ))}
                                         </div>
@@ -344,21 +344,21 @@ export default function Carpentry() {
                         </div>
 
                         {/* Footer */}
-                        <div className="bg-[#050505] border-t border-white/5 p-6">
+                        <div className="bg-white border-t border-gray-200 p-6">
                             <div className="flex justify-between items-center mb-4">
                                 <div>
-                                    <span className="text-[11px] text-[#666] block mb-1">Selected Configuration</span>
-                                    <span className="text-sm text-white">
+                                    <span className="text-[11px] text-gray-500 block mb-1">Selected Configuration</span>
+                                    <span className="text-sm text-gray-900">
                                         {projectTypes.find(p => p.id === selectedProject)?.name} • {woodOptions.find(w => w.id === selectedWood)?.name}
                                     </span>
                                 </div>
-                                <span className="text-[10px] text-[#C6A87C] bg-[#C6A87C]/5 border border-[#C6A87C]/20 px-2 py-1 rounded font-mono">
+                                <span className="text-[10px] text-[#1483ca] bg-[#1483ca]/5 border border-[#1483ca]/20 px-2 py-1 rounded font-mono">
                                     4-6 Weeks
                                 </span>
                             </div>
                             <Link
                                 to="/book"
-                                className="w-full font-medium text-[13px] py-3 rounded-[4px] transition-all duration-300 flex items-center justify-center gap-2 bg-[#C6A87C] text-[#050505] hover:bg-[#B59669]"
+                                className="w-full font-medium text-[13px] py-3 rounded-[4px] transition-all duration-300 flex items-center justify-center gap-2 bg-[#1483ca] text-white hover:bg-[#106ba3]"
                             >
                                 <Calendar size={16} />
                                 Book Consultation
@@ -369,14 +369,14 @@ export default function Carpentry() {
             </section>
 
             {/* CTA */}
-            <section className="py-16 border-t border-white/5 bg-gradient-to-b from-[#0A0A0A] to-[#050505]">
+            <section className="py-16 border-t border-gray-200 bg-gray-50">
                 <div className="max-w-3xl mx-auto px-6 text-center">
-                    <h2 className="text-2xl font-medium text-white mb-4">Ready to Build Something Beautiful?</h2>
-                    <p className="text-[#888] mb-8">Schedule a consultation for $100 and let's bring your vision to life.</p>
+                    <h2 className="text-2xl font-medium text-gray-900 mb-4">Ready to Build Something Beautiful?</h2>
+                    <p className="text-gray-500 mb-8">Schedule a consultation for $100 and let's bring your vision to life.</p>
                     <Link
                         to="/"
                         state={{ scrollTo: 'booking' }}
-                        className="inline-flex items-center gap-2 bg-[#C6A87C] text-[#050505] px-8 py-4 rounded-lg hover:bg-[#B59669] transition-all font-medium"
+                        className="inline-flex items-center gap-2 bg-[#1483ca] text-white px-8 py-4 rounded-lg hover:bg-[#106ba3] transition-all font-medium"
                     >
                         <span>Schedule Consultation</span>
                         <ArrowRight size={20} />

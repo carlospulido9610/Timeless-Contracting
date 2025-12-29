@@ -161,39 +161,29 @@ export default function Catalog() {
     };
 
     return (
-        <div className="min-h-screen bg-[#050505] pt-20">
-            {/* Hero */}
-            <section className="py-16 border-b border-white/5">
-                <div className="max-w-7xl mx-auto px-6">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="text-center"
-                    >
-                        <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#C6A87C]/10 rounded-full text-[11px] font-medium text-[#C6A87C] border border-[#C6A87C]/20 mb-6">
+        <div className="min-h-screen bg-gray-50 pt-24">
+            {/* Header & Filters Combined */}
+            <div className="max-w-7xl mx-auto px-6 mb-8">
+                <div className="flex flex-col items-center gap-6">
+                    {/* Title */}
+                    <div className="text-center">
+                        <span className="inline-block px-3 py-1 bg-[#1483ca]/10 rounded-full text-[10px] font-medium text-[#1483ca] border border-[#1483ca]/20 mb-3">
                             Our Portfolio
                         </span>
-                        <h1 className="text-4xl md:text-5xl font-medium text-white mb-4 tracking-tight">
+                        <h1 className="text-3xl md:text-5xl font-medium text-gray-900 tracking-tight">
                             Project Catalog
                         </h1>
-                        <p className="text-[#888] max-w-xl mx-auto">
-                            Explore our completed projects and get inspired for your next transformation.
-                        </p>
-                    </motion.div>
-                </div>
-            </section>
+                    </div>
 
-            {/* Category Filters */}
-            <section className="py-6 border-b border-white/5 bg-[#050505]/95 backdrop-blur-sm">
-                <div className="max-w-7xl mx-auto px-6">
+                    {/* Filters */}
                     <div className="flex flex-wrap justify-center gap-2">
                         {categories.map((cat) => (
                             <button
                                 key={cat.id}
                                 onClick={() => setActiveCategory(cat.id)}
-                                className={`px-3.5 py-1.5 rounded-full text-sm font-medium transition-all ${activeCategory === cat.id
-                                    ? 'bg-[#C6A87C] text-black'
-                                    : 'bg-[#111] text-[#888] hover:text-white border border-white/5 hover:border-white/10'
+                                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${activeCategory === cat.id
+                                    ? 'bg-[#1483ca] text-white'
+                                    : 'bg-white text-gray-500 hover:text-gray-900 border border-gray-200 hover:border-gray-300'
                                     }`}
                             >
                                 {cat.label}
@@ -201,92 +191,85 @@ export default function Catalog() {
                         ))}
                     </div>
                 </div>
-            </section>
+            </div>
 
-            {/* Project Grid - Full Bleed Editorial Style */}
+            {/* Project Grid - Mosaic Style */}
             <section className="relative z-10">
-                <motion.div layout className="flex flex-col">
+                <motion.div layout className="grid grid-cols-2 md:grid-cols-3 gap-0.5 bg-gray-200">
                     <AnimatePresence mode="popLayout">
-                        {filteredProjects.map((project, index) => (
-                            <motion.div
-                                key={project.id}
-                                layout
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                exit={{ opacity: 0 }}
-                                transition={{ duration: 0.4, delay: index * 0.05 }}
-                                onClick={() => setSelectedProject(project)}
-                                className="group relative w-full h-[70vh] md:h-[80vh] overflow-hidden cursor-pointer"
-                            >
-                                {/* Full Bleed Image */}
-                                <img
-                                    src={project.image}
-                                    alt={project.title}
-                                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                                />
+                        {filteredProjects.map((project, index) => {
+                            // Mosaic Logic:
+                            // Mobile: Pattern of [Full] -> [Half] [Half] -> [Full]...
+                            // Index % 3 === 0 (1st, 4th...) -> Full Width (Span 2)
+                            // Others -> Half Width (Span 1)
+                            // FIX: If we have a trailing orphan (last item is alone), make it full width.
+                            // This happens when length % 3 === 2 (e.g. 8 items: Full, Half, Half, Full, Half, Half, Full, -> Orphan).
 
-                                {/* Gradient Overlay - Stronger at bottom */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                            let isFullWidth = index % 3 === 0;
+                            if (index === filteredProjects.length - 1 && filteredProjects.length % 3 === 2) {
+                                isFullWidth = true;
+                            }
 
-                                {/* Content Overlay */}
-                                <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
-                                    <motion.div
-                                        initial={{ opacity: 0, y: 20 }}
-                                        whileInView={{ opacity: 1, y: 0 }}
-                                        viewport={{ once: true }}
-                                        transition={{ duration: 0.5, delay: 0.2 }}
-                                    >
-                                        {/* Category Tag */}
-                                        <span className="inline-block px-3 py-1 bg-white/10 backdrop-blur-sm text-white/70 text-xs uppercase tracking-wider mb-4 border border-white/10">
-                                            {project.category.replace('-', ' ')}
-                                        </span>
+                            return (
+                                <motion.div
+                                    key={project.id}
+                                    layout
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    transition={{ duration: 0.4 }}
+                                    onClick={() => setSelectedProject(project)}
+                                    className={`group relative overflow-hidden cursor-pointer ${isFullWidth ? 'col-span-2 aspect-[16/10] md:col-span-3 md:aspect-[21/9]' : 'col-span-1 aspect-[4/5] md:col-span-1.5 md:aspect-square'}`}
+                                >
+                                    {/* Image */}
+                                    <img
+                                        src={project.image}
+                                        alt={project.title}
+                                        className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                                    />
 
-                                        {/* Title */}
-                                        <h3 className="text-3xl md:text-4xl lg:text-5xl font-medium text-white mb-2 tracking-tight">
-                                            {project.title}
-                                        </h3>
+                                    {/* Gradient Overlay */}
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80" />
 
-                                        {/* Subtitle / CTA */}
-                                        <div className="flex items-center gap-6 mt-4">
-                                            <span className="text-white/60 text-sm md:text-base">
-                                                {project.location}
+                                    {/* Content Overlay */}
+                                    <div className={`absolute bottom-0 left-0 right-0 p-4 md:p-8 ${isFullWidth ? 'md:max-w-2xl' : ''}`}>
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 10 }}
+                                            whileInView={{ opacity: 1, y: 0 }}
+                                            viewport={{ once: true }}
+                                        >
+                                            {/* Category Tag */}
+                                            <span className="inline-block px-2 py-0.5 bg-white/10 backdrop-blur-sm !text-white/90 text-[10px] uppercase tracking-wider mb-2 border border-white/10 rounded-sm">
+                                                {project.category.replace('-', ' ')}
                                             </span>
-                                            <span className="text-[#C6A87C] text-sm md:text-base font-medium group-hover:underline transition-all flex items-center gap-2">
-                                                See Products
-                                                <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
-                                            </span>
-                                        </div>
 
-                                        {/* Specs - Revealed on Hover */}
-                                        <div className="mt-6 overflow-hidden">
-                                            <div className="flex flex-wrap gap-4 md:gap-8 transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                                                <div className="flex items-center gap-2">
-                                                    <span className="text-white/40 text-sm">Wood:</span>
-                                                    <span className="text-white text-sm">{project.specs.wood}</span>
-                                                </div>
-                                                <div className="flex items-center gap-2">
-                                                    <span className="text-white/40 text-sm">Finish:</span>
-                                                    <span className="text-white text-sm">{project.specs.finish}</span>
-                                                </div>
-                                                <div className="flex items-center gap-2">
-                                                    <span className="text-white/40 text-sm">Size:</span>
-                                                    <span className="text-white text-sm">{project.specs.size}</span>
-                                                </div>
+                                            {/* Title */}
+                                            <h3 className={`${isFullWidth ? 'text-2xl md:text-4xl' : 'text-lg md:text-2xl'} font-medium !text-white mb-1 tracking-tight leading-tight`}>
+                                                {project.title}
+                                            </h3>
+
+                                            {/* Subtitle / CTA */}
+                                            <div className="flex items-center gap-3 mt-2">
+                                                {isFullWidth && (
+                                                    <span className="text-white/60 text-xs md:text-sm hidden md:inline-block">
+                                                        {project.location}
+                                                    </span>
+                                                )}
+                                                <span className="!text-white text-xs md:text-sm font-medium group-hover:text-white/80 transition-colors flex items-center gap-1">
+                                                    View Details
+                                                </span>
                                             </div>
-                                        </div>
-                                    </motion.div>
-                                </div>
-
-                                {/* Decorative Line */}
-                                <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-                            </motion.div>
-                        ))}
+                                        </motion.div>
+                                    </div>
+                                </motion.div>
+                            );
+                        })}
                     </AnimatePresence>
                 </motion.div>
             </section>
 
             {/* Tesla-style Configurator Preview */}
-            <section className="py-16 border-t border-white/5 bg-[#0A0A0A]">
+            <section className="py-16 border-t border-gray-200 bg-white">
                 <div className="max-w-5xl mx-auto px-6">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -294,20 +277,20 @@ export default function Catalog() {
                         viewport={{ once: true }}
                         className="text-center mb-10"
                     >
-                        <h2 className="text-2xl font-medium text-white mb-3">Configure Your Project</h2>
-                        <p className="text-[#666]">Select materials, finishes, and extras for your custom build</p>
+                        <h2 className="text-2xl font-medium text-gray-900 mb-3">Configure Your Project</h2>
+                        <p className="text-gray-500">Select materials, finishes, and extras for your custom build</p>
                     </motion.div>
 
                     {/* Tab Navigation */}
                     <div className="flex justify-center mb-8">
-                        <div className="inline-flex bg-[#111] p-1 rounded-lg border border-white/5">
+                        <div className="inline-flex bg-gray-100 p-1 rounded-lg border border-gray-200">
                             {configTabs.map((tab) => (
                                 <button
                                     key={tab.id}
                                     onClick={() => setActiveConfigTab(tab.id)}
                                     className={`px-6 py-2.5 rounded-md text-sm font-medium transition-all ${activeConfigTab === tab.id
-                                        ? 'bg-[#C6A87C] text-black'
-                                        : 'text-[#666] hover:text-white'
+                                        ? 'bg-[#1483ca] text-white'
+                                        : 'text-gray-500 hover:text-gray-900'
                                         }`}
                                 >
                                     {tab.label}
@@ -329,14 +312,14 @@ export default function Catalog() {
                                 {materialsOptions.map((mat) => (
                                     <div
                                         key={mat.id}
-                                        className="bg-[#111] border border-white/5 rounded-lg p-4 hover:border-[#C6A87C]/50 transition-colors cursor-pointer"
+                                        className="bg-white border border-gray-200 rounded-lg p-4 hover:border-[#1483ca]/50 transition-colors cursor-pointer shadow-sm"
                                     >
                                         <div
-                                            className="w-12 h-12 rounded-full mb-3 ring-2 ring-white/10"
+                                            className="w-12 h-12 rounded-full mb-3 ring-2 ring-gray-100"
                                             style={{ backgroundColor: mat.color }}
                                         />
-                                        <h4 className="text-white font-medium text-sm">{mat.name}</h4>
-                                        <p className="text-[#C6A87C] text-xs">{mat.price}</p>
+                                        <h4 className="text-gray-900 font-medium text-sm">{mat.name}</h4>
+                                        <p className="text-[#1483ca] text-xs">{mat.price}</p>
                                     </div>
                                 ))}
                             </motion.div>
@@ -353,10 +336,10 @@ export default function Catalog() {
                                 {finishOptions.map((fin) => (
                                     <div
                                         key={fin.id}
-                                        className="bg-[#111] border border-white/5 rounded-lg p-4 hover:border-[#C6A87C]/50 transition-colors cursor-pointer"
+                                        className="bg-white border border-gray-200 rounded-lg p-4 hover:border-[#1483ca]/50 transition-colors cursor-pointer shadow-sm"
                                     >
-                                        <h4 className="text-white font-medium text-sm mb-1">{fin.name}</h4>
-                                        <p className="text-[#666] text-xs">{fin.desc}</p>
+                                        <h4 className="text-gray-900 font-medium text-sm mb-1">{fin.name}</h4>
+                                        <p className="text-gray-500 text-xs">{fin.desc}</p>
                                     </div>
                                 ))}
                             </motion.div>
@@ -373,10 +356,10 @@ export default function Catalog() {
                                 {extraOptions.map((ext) => (
                                     <div
                                         key={ext.id}
-                                        className="bg-[#111] border border-white/5 rounded-lg p-4 hover:border-[#C6A87C]/50 transition-colors cursor-pointer flex justify-between items-center"
+                                        className="bg-white border border-gray-200 rounded-lg p-4 hover:border-[#1483ca]/50 transition-colors cursor-pointer flex justify-between items-center shadow-sm"
                                     >
-                                        <h4 className="text-white font-medium text-sm">{ext.name}</h4>
-                                        <span className="text-[#C6A87C] text-sm font-medium">{ext.price}</span>
+                                        <h4 className="text-gray-900 font-medium text-sm">{ext.name}</h4>
+                                        <span className="text-[#1483ca] text-sm font-medium">{ext.price}</span>
                                     </div>
                                 ))}
                             </motion.div>
@@ -386,7 +369,7 @@ export default function Catalog() {
                     <div className="text-center mt-8">
                         <Link
                             to="/services"
-                            className="inline-flex items-center gap-2 bg-[#C6A87C] hover:bg-[#B59669] text-black font-medium px-6 py-3 rounded-md transition-colors"
+                            className="inline-flex items-center gap-2 bg-[#1483ca] hover:bg-[#106ba3] text-white font-medium px-6 py-3 rounded-md transition-colors"
                         >
                             Explore Services
                             <ArrowRight size={18} />
@@ -396,7 +379,7 @@ export default function Catalog() {
             </section>
 
             {/* Reviews Carousel */}
-            <section className="py-16 border-t border-white/5">
+            <section className="py-16 border-t border-gray-200 bg-gray-50">
                 <div className="max-w-5xl mx-auto px-6">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -404,10 +387,10 @@ export default function Catalog() {
                         viewport={{ once: true }}
                         className="text-center mb-10"
                     >
-                        <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#C6A87C]/10 rounded-full text-[11px] font-medium text-[#C6A87C] border border-[#C6A87C]/20 mb-6">
+                        <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#1483ca]/10 rounded-full text-[11px] font-medium text-[#1483ca] border border-[#1483ca]/20 mb-6">
                             Testimonials
                         </span>
-                        <h2 className="text-2xl font-medium text-white mb-3">What Our Clients Say</h2>
+                        <h2 className="text-2xl font-medium text-gray-900 mb-3">What Our Clients Say</h2>
                     </motion.div>
 
                     <div className="relative">
@@ -418,7 +401,7 @@ export default function Catalog() {
                                 animate={{ opacity: 1, x: 0 }}
                                 exit={{ opacity: 0, x: -50 }}
                                 transition={{ duration: 0.3 }}
-                                className="bg-[#0A0A0A] border border-white/5 rounded-xl overflow-hidden"
+                                className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-lg"
                             >
                                 <div className="grid md:grid-cols-2">
                                     <div className="aspect-[4/3] md:aspect-auto">
@@ -431,15 +414,15 @@ export default function Catalog() {
                                     <div className="p-8 flex flex-col justify-center">
                                         <div className="flex gap-1 mb-4">
                                             {[...Array(reviews[reviewIndex].rating)].map((_, i) => (
-                                                <Star key={i} size={18} className="text-[#C6A87C] fill-[#C6A87C]" />
+                                                <Star key={i} size={18} className="text-[#1483ca] fill-[#1483ca]" />
                                             ))}
                                         </div>
-                                        <p className="text-[#888] leading-relaxed mb-6 italic">
+                                        <p className="text-gray-500 leading-relaxed mb-6 italic">
                                             "{reviews[reviewIndex].text}"
                                         </p>
                                         <div>
-                                            <p className="text-white font-medium">{reviews[reviewIndex].name}</p>
-                                            <p className="text-[#666] text-sm">{reviews[reviewIndex].project}</p>
+                                            <p className="text-gray-900 font-medium">{reviews[reviewIndex].name}</p>
+                                            <p className="text-gray-400 text-sm">{reviews[reviewIndex].project}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -450,7 +433,7 @@ export default function Catalog() {
                         <div className="flex justify-center gap-4 mt-6">
                             <button
                                 onClick={prevReview}
-                                className="w-10 h-10 bg-[#111] border border-white/5 rounded-full flex items-center justify-center text-[#888] hover:text-white hover:border-white/20 transition-colors"
+                                className="w-10 h-10 bg-white border border-gray-200 rounded-full flex items-center justify-center text-gray-400 hover:text-gray-900 hover:border-gray-400 transition-colors shadow-sm"
                             >
                                 <ChevronLeft size={20} />
                             </button>
@@ -459,14 +442,14 @@ export default function Catalog() {
                                     <button
                                         key={i}
                                         onClick={() => setReviewIndex(i)}
-                                        className={`w-2 h-2 rounded-full transition-colors ${i === reviewIndex ? 'bg-[#C6A87C]' : 'bg-[#333]'
+                                        className={`w-2 h-2 rounded-full transition-colors ${i === reviewIndex ? 'bg-[#1483ca]' : 'bg-gray-300'
                                             }`}
                                     />
                                 ))}
                             </div>
                             <button
                                 onClick={nextReview}
-                                className="w-10 h-10 bg-[#111] border border-white/5 rounded-full flex items-center justify-center text-[#888] hover:text-white hover:border-white/20 transition-colors"
+                                className="w-10 h-10 bg-white border border-gray-200 rounded-full flex items-center justify-center text-gray-400 hover:text-gray-900 hover:border-gray-400 transition-colors shadow-sm"
                             >
                                 <ChevronRight size={20} />
                             </button>
@@ -476,13 +459,13 @@ export default function Catalog() {
             </section>
 
             {/* CTA */}
-            <section className="py-16 border-t border-white/5 bg-gradient-to-b from-[#0A0A0A] to-[#050505]">
+            <section className="py-16 border-t border-gray-200 bg-gray-50">
                 <div className="max-w-3xl mx-auto px-6 text-center">
-                    <h2 className="text-2xl font-medium text-white mb-4">Ready to Start Your Project?</h2>
-                    <p className="text-[#888] mb-8">Schedule a consultation and let's bring your vision to life.</p>
+                    <h2 className="text-2xl font-medium text-gray-900 mb-4">Ready to Start Your Project?</h2>
+                    <p className="text-gray-500 mb-8">Schedule a consultation and let's bring your vision to life.</p>
                     <Link
                         to="/book"
-                        className="inline-flex items-center gap-2 bg-[#C6A87C] hover:bg-[#B59669] text-black font-medium px-6 py-3 rounded-md transition-colors"
+                        className="inline-flex items-center gap-2 bg-[#1483ca] hover:bg-[#106ba3] text-white font-medium px-6 py-3 rounded-md transition-colors"
                     >
                         Schedule Consultation
                         <ArrowRight size={18} />
@@ -505,7 +488,7 @@ export default function Catalog() {
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.9, opacity: 0 }}
                             onClick={(e) => e.stopPropagation()}
-                            className="bg-[#0A0A0A] border border-white/10 rounded-xl max-w-2xl w-full overflow-hidden"
+                            className="bg-white border border-gray-200 rounded-xl max-w-2xl w-full overflow-hidden shadow-2xl"
                         >
                             <div className="relative aspect-video">
                                 <img
@@ -521,25 +504,25 @@ export default function Catalog() {
                                 </button>
                             </div>
                             <div className="p-6">
-                                <h3 className="text-xl text-white font-medium mb-2">{selectedProject.title}</h3>
-                                <p className="text-[#888] text-sm mb-4">{selectedProject.location}</p>
+                                <h3 className="text-xl text-gray-900 font-medium mb-2">{selectedProject.title}</h3>
+                                <p className="text-gray-500 text-sm mb-4">{selectedProject.location}</p>
                                 <div className="grid grid-cols-3 gap-4 mb-6">
-                                    <div className="bg-[#111] rounded-lg p-3">
-                                        <p className="text-[10px] text-[#666] uppercase mb-1">Wood</p>
-                                        <p className="text-white text-sm">{selectedProject.specs.wood}</p>
+                                    <div className="bg-gray-50 rounded-lg p-3 border border-gray-100">
+                                        <p className="text-[10px] text-gray-400 uppercase mb-1">Wood</p>
+                                        <p className="text-gray-900 text-sm">{selectedProject.specs.wood}</p>
                                     </div>
-                                    <div className="bg-[#111] rounded-lg p-3">
-                                        <p className="text-[10px] text-[#666] uppercase mb-1">Finish</p>
-                                        <p className="text-white text-sm">{selectedProject.specs.finish}</p>
+                                    <div className="bg-gray-50 rounded-lg p-3 border border-gray-100">
+                                        <p className="text-[10px] text-gray-400 uppercase mb-1">Finish</p>
+                                        <p className="text-gray-900 text-sm">{selectedProject.specs.finish}</p>
                                     </div>
-                                    <div className="bg-[#111] rounded-lg p-3">
-                                        <p className="text-[10px] text-[#666] uppercase mb-1">Size</p>
-                                        <p className="text-white text-sm">{selectedProject.specs.size}</p>
+                                    <div className="bg-gray-50 rounded-lg p-3 border border-gray-100">
+                                        <p className="text-[10px] text-gray-400 uppercase mb-1">Size</p>
+                                        <p className="text-gray-900 text-sm">{selectedProject.specs.size}</p>
                                     </div>
                                 </div>
                                 <Link
                                     to="/book"
-                                    className="w-full inline-flex items-center justify-center gap-2 bg-[#C6A87C] hover:bg-[#B59669] text-black font-medium px-6 py-3 rounded-md transition-colors"
+                                    className="w-full inline-flex items-center justify-center gap-2 bg-[#1483ca] hover:bg-[#106ba3] text-white font-medium px-6 py-3 rounded-md transition-colors"
                                 >
                                     Request Similar Project
                                     <ArrowRight size={18} />

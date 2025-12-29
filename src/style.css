@@ -3,8 +3,8 @@
 /* Base settings */
 body {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    background-color: #050505;
-    color: #A1A1AA;
+    background-color: #ffffff;
+    color: #4b5563;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     position: relative;
@@ -19,7 +19,7 @@ h4,
 h5,
 h6 {
     font-family: 'Outfit', sans-serif;
-    color: #EDEDED;
+    color: #111827;
     letter-spacing: 0.01em;
     font-weight: 500;
     line-height: 1.1;
@@ -31,25 +31,25 @@ h6 {
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-    background: #18181B;
+    background: #f1f5f9;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #3F3F46;
+    background: #cdd5e0;
     border-radius: 2px;
 }
 
 /* Tesla-style Pill & Radio Logic */
 .pill-radio:checked+div {
-    background-color: #EDEDED;
-    color: #000000;
+    background-color: #111827;
+    color: #ffffff;
     font-weight: 500;
-    border-color: #EDEDED;
+    border-color: #111827;
 }
 
 .option-radio:checked+div {
-    border-color: #C6A87C;
-    background-color: #121212;
+    border-color: #1483ca;
+    background-color: #eff6ff;
 }
 
 .option-radio:checked+div .check-icon {

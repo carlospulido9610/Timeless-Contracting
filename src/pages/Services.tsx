@@ -36,10 +36,10 @@ const services = [
 
 export default function Services() {
     return (
-        <div className="min-h-screen bg-[#050505] pt-20">
+        <div className="min-h-screen bg-gray-50 pt-20">
             {/* Hero */}
             <section className="relative py-20 overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-b from-[#C6A87C]/5 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-b from-[#1483ca]/5 to-transparent" />
                 <div className="max-w-6xl mx-auto px-6 relative">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
@@ -47,13 +47,13 @@ export default function Services() {
                         transition={{ duration: 0.6 }}
                         className="text-center"
                     >
-                        <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#C6A87C]/10 rounded-full text-[11px] font-medium text-[#C6A87C] border border-[#C6A87C]/20 mb-6">
+                        <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#1483ca]/10 rounded-full text-[11px] font-medium text-[#1483ca] border border-[#1483ca]/20 mb-6">
                             Professional Services
                         </span>
-                        <h1 className="text-4xl md:text-5xl font-medium text-white mb-6 tracking-tight">
+                        <h1 className="text-4xl md:text-5xl font-medium text-gray-900 mb-6 tracking-tight">
                             Transform Your Space
                         </h1>
-                        <p className="text-lg text-[#888] max-w-2xl mx-auto">
+                        <p className="text-lg text-gray-500 max-w-2xl mx-auto">
                             From fresh paint to custom carpentry, we deliver quality craftsmanship
                             that exceeds expectations.
                         </p>
@@ -62,7 +62,7 @@ export default function Services() {
             </section>
 
             {/* Services Grid */}
-            <section className="py-16 border-t border-white/5">
+            <section className="py-16 border-t border-gray-200">
                 <div className="max-w-6xl mx-auto px-6">
                     <div className="space-y-8">
                         {services.map((service, i) => (
@@ -75,7 +75,7 @@ export default function Services() {
                             >
                                 <Link
                                     to={service.link}
-                                    className="group block bg-[#0A0A0A] border border-white/5 rounded-xl overflow-hidden hover:border-[#C6A87C]/30 transition-all duration-500"
+                                    className="group block bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-[#1483ca]/30 transition-all duration-500 shadow-sm hover:shadow-md"
                                 >
                                     <div className="flex flex-col lg:flex-row">
                                         {/* Image */}
@@ -87,21 +87,21 @@ export default function Services() {
                                                     className="w-full h-full object-cover opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-700"
                                                 />
                                             </div>
-                                            <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#0A0A0A]/80 hidden lg:block" />
+                                            <div className="absolute inset-0 bg-gradient-to-r from-transparent to-white/90 hidden lg:block" />
                                         </div>
 
                                         {/* Content */}
                                         <div className="lg:w-3/5 p-8 lg:p-10 flex flex-col justify-center">
                                             <div className="flex items-center gap-4 mb-4">
-                                                <div className="w-12 h-12 bg-[#C6A87C]/10 rounded-xl flex items-center justify-center group-hover:bg-[#C6A87C]/20 transition-colors">
-                                                    <service.icon size={24} className="text-[#C6A87C]" />
+                                                <div className="w-12 h-12 bg-[#1483ca]/10 rounded-xl flex items-center justify-center group-hover:bg-[#1483ca]/20 transition-colors">
+                                                    <service.icon size={24} className="text-[#1483ca]" />
                                                 </div>
-                                                <h2 className="text-2xl font-medium text-white group-hover:text-[#C6A87C] transition-colors">
+                                                <h2 className="text-2xl font-medium text-gray-900 group-hover:text-[#1483ca] transition-colors">
                                                     {service.title}
                                                 </h2>
                                             </div>
 
-                                            <p className="text-[#888] leading-relaxed mb-6">
+                                            <p className="text-gray-500 leading-relaxed mb-6">
                                                 {service.description}
                                             </p>
 
@@ -109,14 +109,14 @@ export default function Services() {
                                                 {service.features.map((feature) => (
                                                     <span
                                                         key={feature}
-                                                        className="px-3 py-1 bg-[#111] border border-white/5 rounded-full text-xs text-[#888]"
+                                                        className="px-3 py-1 bg-gray-50 border border-gray-200 rounded-full text-xs text-gray-500"
                                                     >
                                                         {feature}
                                                     </span>
                                                 ))}
                                             </div>
 
-                                            <div className="flex items-center gap-2 text-[#C6A87C] text-sm font-medium">
+                                            <div className="flex items-center gap-2 text-[#1483ca] text-sm font-medium">
                                                 <span>Configure & Get Quote</span>
                                                 <ArrowRight size={16} className="group-hover:translate-x-2 transition-transform" />
                                             </div>
@@ -130,23 +130,23 @@ export default function Services() {
             </section>
 
             {/* CTA Section */}
-            <section className="py-20 border-t border-white/5 bg-gradient-to-b from-[#0A0A0A] to-[#050505]">
+            <section className="py-20 border-t border-gray-200 bg-gray-50">
                 <div className="max-w-3xl mx-auto px-6 text-center">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                     >
-                        <h2 className="text-3xl font-medium text-white mb-6">
+                        <h2 className="text-3xl font-medium text-gray-900 mb-6">
                             Not Sure Where to Start?
                         </h2>
-                        <p className="text-[#888] mb-8">
+                        <p className="text-gray-500 mb-8">
                             Schedule a professional consultation and let's discuss how we can transform your space.
                         </p>
                         <Link
                             to="/"
                             state={{ scrollTo: 'booking' }}
-                            className="inline-flex items-center gap-2 bg-[#1a1a1a] text-white px-8 py-4 rounded-lg hover:bg-[#333] transition-all text-sm tracking-wide uppercase"
+                            className="inline-flex items-center gap-2 bg-gray-900 text-white px-8 py-4 rounded-lg hover:bg-black transition-all text-sm tracking-wide uppercase"
                         >
                             <span>Start Your Project</span>
                             <ArrowRight size={18} />
