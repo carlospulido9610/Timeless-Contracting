@@ -247,7 +247,7 @@ export default function Home() {
         <>
             <header id="hero" className="relative w-full min-h-screen flex items-center justify-center overflow-hidden py-24 md:py-0">
                 <div className="absolute inset-0 z-0 bg-gray-900">
-                    <img src={heroBgNew} alt="Beautiful Home Interior" className="w-full h-full object-cover object-center opacity-70" />
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2000&auto=format&fit=crop" alt="Beautiful Home Interior" className="w-full h-full object-cover object-center opacity-70" />
                     <div className="absolute inset-0 bg-black/20"></div>
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
                 </div>
